@@ -16,6 +16,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\app.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\app.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\main.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\polyfills.ts" />
   </ItemGroup>
 
 </Project>
