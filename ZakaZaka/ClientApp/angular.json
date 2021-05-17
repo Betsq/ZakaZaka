@@ -1,4 +1,4 @@
-﻿{
+{
   "version": 1,
   "projects": {
     "helloangularapp": {
@@ -30,11 +30,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ZakaZaka:build"
+            "browserTarget": "helloangularapp:build"
           }
         }
       }
     }
   },
-  "defaultProject": "ZakaZaka"
+  "defaultProject": "helloangularapp"
 }
