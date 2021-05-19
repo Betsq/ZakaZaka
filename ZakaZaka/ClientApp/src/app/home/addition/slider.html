@@ -1,10 +1,37 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+﻿<div class="content-slider" id="main-slider">
+  <div class="content-slider__container">
+    <div class="content-slider__slide">
+      <img class="slide" src="/files/slider/1.jpg" alt="">
+    </div>
+    <div class="content-slider__slide">
+      <img class="slide" src="/files/slider/2.jpg" alt="">
+    </div>
+    <div class="content-slider__slide">
+      <img class="slide" src="/files/slider/3.jpg" alt="">
+    </div>
+    <div class="content-slider__slide">
+      <img class="slide" src="/files/slider/4.jpg" alt="">
+    </div>
+    <div class="content-slider__slide">
+      <img class="slide" src="/files/slider/5.jpg" alt="">
+    </div>
+  </div>
+  <div class="content-slider__container-switch">
+    <svg (click)="nextSlide()" class="content-slider__switch-next" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" viewBox="0 0 16 16">
+      <path style="width:20px; height:30px" fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+    </svg>
+
+    <svg (click)="previousSlide()" class="content-slider__switch-prev" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/>
+    </svg>
+  </div>
+
+
+  <div class="content-slider__container-dot">
+    <div class="content-slider__dot-button" (click)="slideNavButton(1)"></div>
+    <div class="content-slider__dot-button" (click)="slideNavButton(2)"></div>
+    <div class="content-slider__dot-button" (click)="slideNavButton(3)"></div>
+    <div class="content-slider__dot-button" (click)="slideNavButton(4)"></div>
+    <div class="content-slider__dot-button" (click)="slideNavButton(5)"></div>
+  </div>
+</div>
