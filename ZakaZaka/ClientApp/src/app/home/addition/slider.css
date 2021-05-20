@@ -28,17 +28,19 @@
   background: #d4d4d4;
   border-radius: 50%;
   margin: 10px 2px 0 2px;
+  cursor: pointer;
 }
 .dot-button__active {
   background: #898989;
 }
-.content-slider__container-switch svg {
-  position: absolute;
-}
+
 .content-slider__switch-next,
 .content-slider__switch-prev {
+  position: absolute;
   top: 43%;
   right: -50px;
+  cursor: pointer;
+  color: #000;
 }
 .content-slider__switch-prev {
   left: -50px;
@@ -49,6 +51,10 @@
   }
   .content-slider__switch-prev {
     left: 0;
+  }
+  .content-slider__switch-next,
+  .content-slider__switch-prev{
+    color: #fff;
   }
 }
 @media (max-width: 991px) {
