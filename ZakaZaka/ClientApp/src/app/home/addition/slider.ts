@@ -1,4 +1,4 @@
-﻿import {Component, OnInit} from "@angular/core";
+﻿import {Component, OnInit, AfterContentInit} from "@angular/core";
 
 @Component({
   selector: "slider",
@@ -6,7 +6,7 @@
   styleUrls: ["slider.css"],
 })
 
-export class Slider implements OnInit{
+export class Slider implements OnInit, AfterContentInit{
   slideCount: number;
   listOfElement: HTMLCollection;
   slideNow: number = 1;
@@ -14,10 +14,14 @@ export class Slider implements OnInit{
   constructor() {}
 
   ngOnInit() {
-    this.setActiveNavButton();
-    this.numberSlideLoading(1);
+
+  }
+  ngAfterContentInit(){
     this.listOfElement = document.getElementsByClassName("content-slider__slide");
-    this.slideCount = document.getElementsByClassName("content-slider__slide").length;
+    this.slideCount = this.listOfElement.length;
+    this.slideNow = 3;
+    this.setActiveNavButton();
+    this.numberSlideLoading();
   }
 
   public nextSlide() {
@@ -62,9 +66,8 @@ export class Slider implements OnInit{
   private setActiveNavButton() {
     let navButtons = document.getElementsByClassName("content-slider__dot-button");
 
-    for (let i = 0; i < navButtons.length; i++) {
+    for (let i = 0; i < navButtons.length; i++)
       navButtons[i].classList.remove("dot-button__active");
-    }
 
     navButtons[this.slideNow - 1].classList.add("dot-button__active");
   }
@@ -76,13 +79,8 @@ export class Slider implements OnInit{
       this.listOfElement[i].setAttribute("style", "transform: translate(-" + widthSlider + "px, 0);" + additionalAttribute);
   }
 
-  private numberSlideLoading(numSlide: number) {
-    if (numSlide <= 1 || numSlide > this.slideCount)
-      return;
-
-    this.slideNow = numSlide;
-
-    this.setStyle(numSlide, 1, "transition-duration: 0s;");
+  private numberSlideLoading() {
+    this.setStyle(this.slideNow, 1, "transition-duration: 0s;");
   }
 }
 
