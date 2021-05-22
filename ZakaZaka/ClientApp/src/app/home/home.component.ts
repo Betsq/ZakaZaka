@@ -3,9 +3,8 @@
 @Component({
   selector: "home",
   templateUrl: "home.component.html",
-  styleUrls: ["home.component.css"]
+  styleUrls: ["/styles/home.category.component.css"]
 })
 
 export class Home {
-  sliderNav = [1, 2, 3, 4, 5]
 }
