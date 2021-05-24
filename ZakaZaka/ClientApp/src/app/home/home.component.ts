@@ -7,7 +7,8 @@
     "/styles/home.instruction.css",
     "/styles/home.reasons.css",
     "/styles/home.mobile.css",
-    "/styles/home.hunger.css"
+    "/styles/home.hunger.css",
+    "/styles/home.subscribe.css"
   ]
 })
 

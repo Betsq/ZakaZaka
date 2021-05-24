@@ -1,0 +1,79 @@
+﻿.subscribe {
+  background: #8cd6ad;
+  padding: 50px 0;
+}
+.subscribe__title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+}
+.subscribe__title span {
+  font-weight: 400;
+  color: #6b4000;
+}
+.subscribe__form {
+  display: flex;
+}
+.subscribe__email-block {
+  margin: 0 20px 0 auto;
+}
+.subscribe__email {
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  margin: 7px 20px 0 auto;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+.subscribe__send {
+  border-radius: 50px;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+  background: #8cd6ad;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 7px;
+  padding: 12px 50px;
+  transition-duration: 0.4s;
+}
+.subscribe__send,
+.subscribe__email {
+  max-height: 47px;
+}
+.subscribe__send:focus {
+  outline: none;
+}
+.subscribe__send:hover {
+  border: 1px solid #8b8b8b;
+  color: #8b8b8b;
+}
+.subscribe__blocks {
+  display: flex;
+  flex: 1;
+}
+@media (max-width: 991px) {
+  .subscribe__title {
+    text-align: center;
+  }
+  .subscribe__form {
+    flex-direction: column;
+    align-items: center;
+  }
+  .subscribe__blocks {
+    margin-top: 20px;
+  }
+}
+@media (max-width: 551px) {
+  .subscribe__blocks {
+    display: block;
+  }
+  .subscribe__email,
+  .subscribe__send {
+    display: block;
+    margin: 4px auto;
+  }
+}
