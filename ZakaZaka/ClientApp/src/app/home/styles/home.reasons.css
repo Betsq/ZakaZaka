@@ -1,8 +1,11 @@
-﻿.reasons__title {
+﻿.reasons {
+  padding: 50px 0;
+}
+.reasons__title {
   font-size: 32px;
   display: flex;
   justify-content: center;
-  padding: 20px 0;
+  padding-bottom: 20px;
 }
 .reasons__title::before {
   content: "";
