@@ -6,7 +6,8 @@
   styleUrls: ["/styles/home.category.component.css",
     "/styles/home.instruction.css",
     "/styles/home.reasons.css",
-    "/styles/home.mobile.css"
+    "/styles/home.mobile.css",
+    "/styles/home.hunger.css"
   ]
 })
 
