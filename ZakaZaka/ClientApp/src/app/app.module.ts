@@ -7,6 +7,7 @@ import { AppComponent } from "./app.component";
 import {Home} from "./home/home.component";
 import {Slider} from "./home/addition/slider";
 import {Header} from "./header/header.component";
+import {Footer} from "./footer/footer.component";
 
 const appRoutes: Routes = [
   { path: '', component: Home },
@@ -15,7 +16,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)],
-  declarations: [AppComponent, Home, Slider, Header],
+    declarations: [AppComponent, Home, Slider, Header, Footer],
   bootstrap: [ AppComponent]
 })
 export class AppModule{
