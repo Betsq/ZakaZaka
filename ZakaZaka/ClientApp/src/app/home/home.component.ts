@@ -3,7 +3,11 @@
 @Component({
   selector: "home",
   templateUrl: "home.component.html",
-  styleUrls: ["/styles/home.category.component.css", "/styles/home.instruction.css", "/styles/home.reasons.css"]
+  styleUrls: ["/styles/home.category.component.css",
+    "/styles/home.instruction.css",
+    "/styles/home.reasons.css",
+    "/styles/home.mobile.css"
+  ]
 })
 
 export class Home {

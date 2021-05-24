@@ -1,0 +1,53 @@
+﻿.mobile {
+  background: #fe8f33;
+  padding: 50px 0;
+}
+.mobile__title {
+  font-size: 30px;
+  color: white;
+}
+.mobile__note {
+  color: white;
+  font-weight: 600;
+  margin: 20px 0 80px 0;
+}
+.mobile__note span {
+  color: #c7e2ff;
+  font-weight: 400;
+}
+.mobile__preview {
+  position: absolute;
+  bottom: -50px;
+  right: 0;
+}
+
+.mobile__app-store{
+  margin-right: 20px;
+}
+@media (max-width: 1270px) {
+  .mobile__downloads-app {
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile__app-store {
+    padding: 0 0 0 10px;
+  }
+  .mobile__note {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 991px) {
+  .mobile__preview {
+    display: none;
+  }
+  .mobile {
+    display: flex;
+  }
+  .mobile__downloads-app {
+    align-items: center;
+  }
+  .mobile__app-store {
+    margin: 0!important;
+    padding: 0;
+  }
+}
