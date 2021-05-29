@@ -46,9 +46,17 @@ namespace ZakaZaka
                 app.UseSpaStaticFiles();
             }
 
+            app.UseRouting();
+            app.UseAuthorization();
+            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            
 
             app.UseSpa(spa =>
             {
