@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ZakaZaka.Models;
 
 namespace ZakaZaka.Context
 {
@@ -6,5 +7,7 @@ namespace ZakaZaka.Context
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             :base(options) { }
+            
+       public DbSet<Restaurant> Restaurants { get; set; }
     }
 }
