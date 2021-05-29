@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\service" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.4.21253.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.4.21253.1" />
@@ -25,6 +21,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\header\header.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\home\addition\slider.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\home\home.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Model\restaurant.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\restaurant-manage\restaurantManage.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\restuarantData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.ts" />
     <TypeScriptCompile Include="ClientApp\src\polyfills.ts" />
   </ItemGroup>

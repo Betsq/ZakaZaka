@@ -1,12 +1,12 @@
 ﻿import { Component, OnInit} from "@angular/core";
-import { RestuarantDataService} from "../service/restuarantData.service";
+import { RestaurantDataService} from "../service/restuarantData.service";
 import { Restaurant} from "../Model/restaurant";
 
 @Component({
   selector: "restaurant-manage",
   templateUrl: "/restaurantManage.component.html",
-  styleUrls: [],
-  providers: [RestuarantDataService]
+  styleUrls: ["/styles/common.less", "/styles/products.less", "/styles/group.less"],
+  providers: [RestaurantDataService]
 })
 
 export class RestaurantManageComponent{
@@ -14,11 +14,12 @@ export class RestaurantManageComponent{
   private restaurants: Restaurant[];
   private tableMode: boolean = true;
 
-  constructor(private dataService: RestuarantDataService) {}
+  constructor(private dataService: RestaurantDataService) {}
 
-  //ngOnInit(){
-   // this.loadProducts();
-  //}
+  ngOnInit(){
+    this.loadProducts();
+  }
+
 
   loadProducts(){
     this.dataService.getRestaurants().subscribe((data: Restaurant[]) => this.restaurants = data);

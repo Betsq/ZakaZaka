@@ -7,7 +7,7 @@ using ZakaZaka.Models;
 namespace ZakaZaka.Controllers
 {
     [ApiController]
-    [Route("/api/Restaurant")]
+    [Route("api/Restaurant")]
     public class RestaurantController : Controller
     {
         private readonly ApplicationContext _db;
