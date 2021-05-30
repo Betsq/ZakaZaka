@@ -1,25 +1,27 @@
 ﻿import { Component, OnInit} from "@angular/core";
-import { RestaurantDataService} from "../service/restuarantData.service";
-import { Restaurant} from "../Model/restaurant";
+import { RestaurantDataService } from "../service/restuarantData.service";
+import { Restaurant } from "../Model/restaurant";
 
 @Component({
   selector: "restaurant-manage",
-  templateUrl: "/restaurantManage.component.html",
+  templateUrl: "./restaurantManage.component.html",
   styleUrls: ["/styles/common.less", "/styles/products.less", "/styles/group.less"],
   providers: [RestaurantDataService]
 })
 
-export class RestaurantManageComponent{
-  private restaurant: Restaurant = new Restaurant();
-  private restaurants: Restaurant[];
-  private tableMode: boolean = true;
+export class RestaurantManageComponent implements OnInit{
+
+  restaurant: Restaurant = new Restaurant();
+  restaurants: Restaurant[];
+  isShowProducts: boolean = true;
+  isShowCreate: boolean = false;
+  isShowUpdate: boolean = false;
 
   constructor(private dataService: RestaurantDataService) {}
 
   ngOnInit(){
     this.loadProducts();
   }
-
 
   loadProducts(){
     this.dataService.getRestaurants().subscribe((data: Restaurant[]) => this.restaurants = data);
@@ -38,11 +40,12 @@ export class RestaurantManageComponent{
 
   editProduct(restaurant: Restaurant){
     this.restaurant = restaurant;
+    this.show(false, false, true)
   }
 
   cancel(){
     this.restaurant = new Restaurant();
-    this.tableMode = true;
+    this.show(true, false, false);
   }
 
   remove(restaurant: Restaurant){
@@ -51,6 +54,12 @@ export class RestaurantManageComponent{
 
   add(){
     this.cancel();
-    this.tableMode = false;
+    this.show(false, true, false);
+  }
+
+  show(showProducts: boolean, showCreate: boolean, showUpdate){
+    this.isShowProducts = showProducts;
+    this.isShowCreate = showCreate;
+    this.isShowUpdate = showUpdate;
   }
 }

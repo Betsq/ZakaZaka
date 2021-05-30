@@ -1,11 +1,10 @@
-﻿
-<div class="products">
+﻿<div class="products">
   <div class="content">
-    <div class="products__list">
+    <div class="products__list" *ngIf="isShowProducts">
       <div class="products__title">
         List of restaurants
       </div>
-      <button class="button-add">
+      <button class="button-add" (click)="add()">
         Add
       </button>
       <table class="products__table">
@@ -20,90 +19,90 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td class="products__name">Resti Wonka</td>
+        <tr *ngFor="let rs of restaurants">
+          <td class="products__name">{{rs?.name}}</td>
           <td class="products__buttons">
-            <button class="products__change button-change">Change</button>
-            <button class="button-remove">Remove</button>
+            <button class="products__change button-change" (click)="editProduct(rs)">Change</button>
+            <button class="button-remove" (click)="remove(rs)">Remove</button>
           </td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="products__add">
+    <div class="products__add" *ngIf="isShowCreate">
       <div class="products__title">
         Add restaurants
       </div>
 
       <div class="group">
-        <input class="group__input" type="text" required>
+        <input class="group__input" type="text" [(ngModel)]="restaurant.name" required>
         <span class="bar"></span>
         <label class="group__title">Name</label>
       </div>
       <div class="group">
-        <input class="group__input" type="number" required>
+        <input class="group__input" type="number" [(ngModel)]="restaurant.minimumOrder" required>
         <span class="bar"></span>
         <label class="group__title">Minimum Order</label>
       </div>
       <div class="group">
-        <input class="group__input" type="number" required>
+        <input class="group__input" type="number" [(ngModel)]="restaurant.costDelivery" required>
         <span class="bar"></span>
         <label class="group__title">Cost Delivery</label>
       </div>
       <div class="group">
         <label class="">
           Time To Delivery
-          <input class="" type="time" required>
+          <input class="" type="number" [(ngNodel)]="restaurant.timeToDelivery" step="0.1" required>
         </label>
 
       </div>
       <div class="group">
         <label class="">
           Pay To Card
-          <input class="" type="checkbox" required>
+          <input class="" type="checkbox" [(ngModel)]="restaurant.payToCard" required>
         </label>
       </div>
-      <button class="button-add">Add</button>
-      <button class="button-cancel">Cancel</button>
+      <button class="button-add" (click)="save()">Add</button>
+      <button class="button-cancel" (click)="cancel()">Cancel</button>
     </div>
 
 
-    <div class="products__update">
+    <div class="products__update" *ngIf="isShowUpdate">
       <div class="products__title">
         Update restaurants
       </div>
 
       <div class="group">
-        <input class="group__input" type="text" required>
+        <input class="group__input" type="text" [(ngModel)]="restaurant.name">
         <span class="bar"></span>
         <label class="group__title">Name</label>
       </div>
       <div class="group">
-        <input class="group__input" type="number" required>
+        <input class="group__input" type="number" [(ngModel)]="restaurant.minimumOrder" required>
         <span class="bar"></span>
         <label class="group__title">Minimum Order</label>
       </div>
       <div class="group">
-        <input class="group__input" type="number" required>
+        <input class="group__input" type="number" [(ngModel)]="restaurant.costDelivery" required>
         <span class="bar"></span>
         <label class="group__title">Cost Delivery</label>
       </div>
       <div class="group">
         <label class="">
           Time To Delivery
-          <input class="" type="time" required>
+          <input class="" type="number" [(ngModel)]="restaurant.timeToDelivery" step="0.1"  required>
         </label>
 
       </div>
       <div class="group">
         <label class="">
           Pay To Card
-          <input class="" type="checkbox" required>
+          <input class="" type="checkbox" [(ngModel)]="restaurant.payToCard" required>
         </label>
       </div>
-      <button class="button-change">Update</button>
-      <button class="button-cancel">Cancel</button>
+      <button class="button-change" (click)="save()">Update</button>
+      <button class="button-cancel" (click)="cancel()">Cancel</button>
     </div>
   </div>
 </div>
