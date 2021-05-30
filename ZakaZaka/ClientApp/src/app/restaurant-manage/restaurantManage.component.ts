@@ -49,7 +49,10 @@ export class RestaurantManageComponent implements OnInit{
   }
 
   remove(restaurant: Restaurant){
-    this.dataService.removeRestaurant(restaurant.id).subscribe(data => this.loadProducts());
+    let confirmToDelete: boolean = confirm("Are you sure you want to delete this item?");
+
+    if(confirmToDelete)
+      this.dataService.removeRestaurant(restaurant.id).subscribe(data => this.loadProducts());
   }
 
   add(){
