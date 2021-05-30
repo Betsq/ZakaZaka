@@ -60,7 +60,8 @@ namespace ZakaZaka.Controllers
             return Ok(restaurant);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
+
         public IActionResult Delete(int id)
         {
             var restaurant = _db.Restaurants.Find(id);
