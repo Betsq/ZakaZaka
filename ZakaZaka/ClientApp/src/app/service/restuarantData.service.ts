@@ -1,6 +1,7 @@
 ﻿import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpRequest} from "@angular/common/http";
 import  { Restaurant} from "../Model/restaurant";
+import {NgForm} from "@angular/forms";
 
 @Injectable()
 export class RestaurantDataService{
@@ -16,12 +17,13 @@ export class RestaurantDataService{
     return this.http.get(this.url + "/" + id)
   }
 
-  createRestaurant(restaurant: Restaurant){
-    return this.http.post(this.url, restaurant)
+  createRestaurant(form: FormData){
+    const headers = new HttpHeaders().append("Content-Disposition", "multipart/form-data");
+    return this.http.post(this.url, form, {headers: headers});
   }
 
-  updateRestaurant(restaurant: Restaurant){
-    return this.http.put(this.url, restaurant)
+  updateRestaurant(model: Restaurant){
+    return this.http.put(this.url, model)
   }
 
   removeRestaurant(id: number){
