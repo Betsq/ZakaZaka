@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZakaZaka.Context;
 using ZakaZaka.Models;
+using ZakaZaka.Service.AddingFile;
+using ZakaZaka.Service.FormDataBinder;
 
 namespace ZakaZaka.Controllers
 {
@@ -10,11 +14,13 @@ namespace ZakaZaka.Controllers
     [Route("api/Restaurant")]
     public class RestaurantController : Controller
     {
+        private IWebHostEnvironment _webHostEnvironment;
         private readonly ApplicationContext _db;
 
-        public RestaurantController(ApplicationContext db)
+        public RestaurantController(ApplicationContext db, IWebHostEnvironment environment)
         {
             _db = db;
+            _webHostEnvironment = environment;
         }
         
         [HttpGet]
@@ -37,18 +43,31 @@ namespace ZakaZaka.Controllers
             return restaurant;
         }
 
-        [HttpPost]
-        public IActionResult Post(Restaurant restaurant)
+        [HttpPost, DisableRequestSizeLimit]
+        public IActionResult Post(
+            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
+            Restaurant restaurant,
+            [FromForm]
+            IFormFile file)
         {
-            if (!ModelState.IsValid)
+            if (restaurant == null)
                 return BadRequest(ModelState);
+            
+            const string pathToFolder = "/files/restaurants/logo";
 
+            if (file != null)
+            {
+                var addImage = new AddImageToServer(file, pathToFolder, file.FileName, _webHostEnvironment);
+            
+                restaurant.Image = addImage.Add();
+            }
+            
             _db.Restaurants.Add(restaurant);
             _db.SaveChanges();
             
             return Ok(restaurant);
         }
-
+        
         [HttpPut]
         public IActionResult Put(Restaurant restaurant)
         {
