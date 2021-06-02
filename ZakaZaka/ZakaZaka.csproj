@@ -12,6 +12,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,10 @@
     <TypeScriptCompile Include="ClientApp\src\app\service\restuarantData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.ts" />
     <TypeScriptCompile Include="ClientApp\src\polyfills.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\files\restaurants\logo" />
   </ItemGroup>
 
 </Project>
