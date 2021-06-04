@@ -2,6 +2,7 @@
 import { RestaurantDataService } from "../service/restuarantData.service";
 import { Restaurant } from "../Model/restaurant";
 import { NgForm } from "@angular/forms";
+import {Byte} from "@angular/compiler/src/util";
 
 @Component({
   selector: "restaurant-manage",
@@ -16,6 +17,7 @@ export class RestaurantManageComponent implements OnInit{
   restaurants: Restaurant[];
 
   file: FileList;
+  imageBase64: string;
 
   isShowProducts: boolean = true;
   isShowCreate: boolean = false;
@@ -31,13 +33,29 @@ export class RestaurantManageComponent implements OnInit{
     this.dataService.getRestaurants().subscribe((data: Restaurant[]) => this.restaurants = data);
   }
 
-  loadFile(event: EventTarget){
+  loadFile(event: EventTarget, idElement: string){
     let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
     let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
     let files: FileList = target.files;
 
     this.file = files;
+
+
+    let reader = new FileReader();
+    reader.readAsDataURL(this.file[0]);
+
+    reader.onload = function (){
+       let element = document.getElementById(idElement)
+       let result = reader.result;
+
+       element.setAttribute("src",  result.toString());
+    }
   }
+
+  displayImage(image: any){
+    console.log(image);
+  }
+
 
   save(){
     if(this.restaurant.id == null){
@@ -61,6 +79,7 @@ export class RestaurantManageComponent implements OnInit{
   }
 
   cancel(){
+    this.file = null;
     this.restaurant = new Restaurant();
     this.show(true, false, false);
   }

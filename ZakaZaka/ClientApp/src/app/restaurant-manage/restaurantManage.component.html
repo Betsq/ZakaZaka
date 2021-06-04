@@ -64,8 +64,12 @@
         </label>
       </div>
       <div class="group">
-        <input type="file" accept="image/*" (change)="loadFile($event)" required>
+        <input type="file" accept="image/*" (change)="loadFile($event, 'preview-logo')" required>
       </div>
+      <div class="group">
+        <img src="" id="preview-logo" style="width: 160px; height: 160px">
+      </div>
+
 
       <button class="button-add" (click)="save()">Add</button>
       <button class="button-cancel" (click)="cancel()">Cancel</button>
@@ -103,6 +107,12 @@
           Pay To Card
           <input class="" type="checkbox" [(ngModel)]="restaurant.payToCard" required>
         </label>
+      </div>
+      <div class="group">
+        <input type="file" accept="image/*" (change)="loadFile($event, 'preview-logo')" required>
+      </div>
+      <div class="group">
+        <img src="" id="preview-logo" style="width: 160px; height: 160px">
       </div>
       <button class="button-change" (click)="save()">Update</button>
       <button class="button-cancel" (click)="cancel()">Cancel</button>
