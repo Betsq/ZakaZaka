@@ -8,6 +8,7 @@ using ZakaZaka.Models;
 using ZakaZaka.Service.AddingFile;
 using ZakaZaka.Service.FormDataBinder;
 using ZakaZaka.Service.RemovingFile;
+using System.IO;
 
 namespace ZakaZaka.Controllers
 {
@@ -83,12 +84,16 @@ namespace ZakaZaka.Controllers
             {
                 string  pathToFile = restaurant.Image;
                 const string pathToFolder = "/files/restaurants/logo/";
-                
-                var removeFile = new RemoveFileFromServer(pathToFile, _webHostEnvironment);
-                removeFile.Remove();
+
+                if (System.IO.File.Exists(_webHostEnvironment.WebRootPath + pathToFile)) 
+                {
+                    var removeFile = new RemoveFileFromServer(pathToFile, _webHostEnvironment);
+                    removeFile.Remove();
+                }
                 
                 var addImage = new AddImageToServer(file, pathToFolder, file.FileName, _webHostEnvironment);
-                addImage.Add();
+                  
+                restaurant.Image = addImage.Add();
             }
             
             _db.Update(restaurant);
