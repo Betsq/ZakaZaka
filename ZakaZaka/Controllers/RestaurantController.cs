@@ -53,7 +53,7 @@ namespace ZakaZaka.Controllers
             if (restaurant == null)
                 return BadRequest(ModelState);
             
-            const string pathToFolder = "/files/restaurants/logo";
+            const string pathToFolder = "/files/restaurants/logo/";
 
             if (file != null)
             {
