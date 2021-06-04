@@ -64,7 +64,7 @@
         </label>
       </div>
       <div class="group">
-        <input type="file" accept="image/*" (change)="loadFile($event, 'preview-logo')" required>
+        <input type="file" id="file" accept="image/*" (change)="loadFile($event.target.files, 'preview-logo')" required>
       </div>
       <div class="group">
         <img src="" id="preview-logo" style="width: 160px; height: 160px">
@@ -109,7 +109,7 @@
         </label>
       </div>
       <div class="group">
-        <input type="file" accept="image/*" (change)="loadFile($event, 'preview-logo')" required>
+        <input type="file" id="file" accept="image/*" (change)="loadFile($event.target.files, 'preview-logo')" required>
       </div>
       <div class="group">
         <img src="" id="preview-logo" style="width: 160px; height: 160px">

@@ -33,13 +33,8 @@ export class RestaurantManageComponent implements OnInit{
     this.dataService.getRestaurants().subscribe((data: Restaurant[]) => this.restaurants = data);
   }
 
-  loadFile(event: EventTarget, idElement: string){
-    let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
-    let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
-    let files: FileList = target.files;
-
+  loadFile(files: FileList, idElement: string){
     this.file = files;
-
 
     let reader = new FileReader();
     reader.readAsDataURL(this.file[0]);
@@ -51,11 +46,6 @@ export class RestaurantManageComponent implements OnInit{
        element.setAttribute("src",  result.toString());
     }
   }
-
-  displayImage(image: any){
-    console.log(image);
-  }
-
 
   save(){
     if(this.restaurant.id == null){
