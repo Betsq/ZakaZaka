@@ -108,8 +108,16 @@ namespace ZakaZaka.Controllers
             var restaurant = _db.Restaurants.Find(id);
 
             if (restaurant == null)
-                return Ok();
+                return BadRequest();
 
+            if (System.IO.File.Exists(_webHostEnvironment.WebRootPath + restaurant.Image))
+            {
+                string pathToFile = restaurant.Image;
+                
+                var removeFile = new RemoveFileFromServer(pathToFile, _webHostEnvironment);
+                removeFile.Remove();
+            }
+            
             _db.Restaurants.Remove(restaurant);
             _db.SaveChanges();
 
