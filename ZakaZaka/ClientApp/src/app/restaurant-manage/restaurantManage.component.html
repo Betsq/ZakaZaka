@@ -112,7 +112,7 @@
         <input type="file" id="file" accept="image/*" (change)="loadFile($event.target.files, 'preview-logo')" required>
       </div>
       <div class="group">
-        <img src="" id="preview-logo" style="width: 160px; height: 160px">
+        <img src="{{restaurant.image}}" id="preview-logo" style="width: 160px; height: 160px">
       </div>
       <button class="button-change" (click)="save()">Update</button>
       <button class="button-cancel" (click)="cancel()">Cancel</button>
