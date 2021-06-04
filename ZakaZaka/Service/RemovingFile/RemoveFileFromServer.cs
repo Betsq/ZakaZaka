@@ -16,10 +16,11 @@ namespace ZakaZaka.Service.RemovingFile
 
         public override void Remove()
         {
-            if (!File.Exists(_path))
-                throw new Exception($"The file in the path {_webHostEnvironment + _path} does not exist");
+            if (!File.Exists(_webHostEnvironment.WebRootPath +_path))
+                throw new Exception($"The file in the path " +
+                                    $"{_webHostEnvironment.WebRootPath + _path} does not exist");
             
-            File.Delete(_webHostEnvironment + _path);
+            File.Delete(_webHostEnvironment.WebRootPath + _path);
         }
     }
 }
