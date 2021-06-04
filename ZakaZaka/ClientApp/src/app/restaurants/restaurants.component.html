@@ -87,22 +87,22 @@
       </aside>
 
       <div class="right-side">
-        <a class="item" href="#">
+        <a class="item" href="#" *ngFor="let rst of restaurants">
           <div class="item__image">
-            <img src="/kanuki.jpg" alt="">
+            <img src="{{rst.image}}" alt="{{rst.name}}">
           </div>
           <div class="item__info">
             <div class="item__title">
               <div class="">
                 <div class="item__name">
-                  Tanuki
+                  {{rst.name}}
                 </div>
                 <div class="item__cuisine">
-                  <span>Cuisine:</span> Sushi / China / Japan
+                  <span>Cuisine:</span>
                 </div>
               </div>
               <div class="item__rate">
-                4318 review
+                322 review
               </div>
             </div>
             <div class="item__desc">
@@ -112,16 +112,20 @@
                 </div>
                 <div class="item__sub-desc" >
                   <i id="coins"></i>
-                  30 $
+                  {{rst.minimumOrder}} $
                 </div>
               </div>
               <div class="item__sub-item">
                 <div class="item__sub-title">
                   delivery:
                 </div>
-                <div class="item__sub-desc">
+                <div class="item__sub-desc" *ngIf="rst.costDelivery <= 0; else freeDelivery">
                   <i id="rocket"></i>
-                  5 $
+                  Free
+                </div>
+                <div class="item__sub-desc" #freeDelivery>
+                  <i id="rocket"></i>
+                  {{rst.costDelivery}} $
                 </div>
               </div>
               <div class="item__sub-item">
@@ -130,7 +134,7 @@
                 </div>
                 <div class="item__sub-desc">
                   <i id="time"></i>
-                  Until 1 hours
+                  Until {{rst.timeToDelivery}} hours
                 </div>
               </div>
               <div class="item__sub-item">
@@ -139,7 +143,8 @@
                 </div>
                 <div class="item__sub-desc" >
                   <i id="payment-card"></i>
-                  Online
+                  <div *ngIf="rst.payToCard; else paymentCardNo">Yes</div>
+                  <div #paymentCardNo>No</div>
                 </div>
               </div>
             </div>
