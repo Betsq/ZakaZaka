@@ -30,7 +30,7 @@ namespace ZakaZaka.Service.AddingFile
         using var fileStream =
             new FileStream(_webHostEnvironment.WebRootPath + _path + _nameFile, FileMode.Create);
 
-        _file.CopyToAsync(fileStream);
+        _file.CopyTo(fileStream);
 
         return _path + _nameFile;
     }
