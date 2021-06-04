@@ -22,8 +22,9 @@ export class RestaurantDataService{
     return this.http.post(this.url, form, {headers: headers});
   }
 
-  updateRestaurant(model: Restaurant){
-    return this.http.put(this.url, model)
+  updateRestaurant(form: FormData){
+    const headers = new HttpHeaders().append("Content-Disposition", "multipart/form-data");
+    return this.http.put(this.url, form, {headers: headers});
   }
 
   removeRestaurant(id: number){

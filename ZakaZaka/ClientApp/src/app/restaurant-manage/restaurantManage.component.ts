@@ -16,8 +16,7 @@ export class RestaurantManageComponent implements OnInit{
   restaurant: Restaurant = new Restaurant();
   restaurants: Restaurant[];
 
-  file: FileList;
-  imageBase64: string;
+  file: FileList = null;
 
   isShowProducts: boolean = true;
   isShowCreate: boolean = false;
@@ -47,18 +46,26 @@ export class RestaurantManageComponent implements OnInit{
     }
   }
 
-  save(){
-    if(this.restaurant.id == null){
+  formGenerate(){
+    const formDate = new FormData();
 
-      const formDate = new FormData();
-      formDate.append("restaurant", JSON.stringify(this.restaurant));
+    formDate.append("restaurant", JSON.stringify(this.restaurant));
+
+    if(this.file !== null)
       formDate.append("file", this.file[0], this.file[0].name);
 
-        this.dataService.createRestaurant(formDate)
-          .subscribe((data: Restaurant) => this.loadProducts())
+    return formDate;
+  }
+
+  save(){
+    const formDate = this.formGenerate();
+
+    if(this.restaurant.id == null){
+      this.dataService.createRestaurant(formDate)
+        .subscribe((data: Restaurant) => this.loadProducts())
     }
     else {
-      this.dataService.updateRestaurant(this.restaurant).subscribe(data => this.loadProducts())
+      this.dataService.updateRestaurant(formDate).subscribe(data => this.loadProducts())
     }
     this.cancel();
   }
