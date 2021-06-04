@@ -7,6 +7,7 @@ using ZakaZaka.Context;
 using ZakaZaka.Models;
 using ZakaZaka.Service.AddingFile;
 using ZakaZaka.Service.FormDataBinder;
+using ZakaZaka.Service.RemovingFile;
 
 namespace ZakaZaka.Controllers
 {
@@ -69,11 +70,27 @@ namespace ZakaZaka.Controllers
         }
         
         [HttpPut]
-        public IActionResult Put(Restaurant restaurant)
+        public IActionResult Put(
+            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
+            Restaurant restaurant,
+            [FromForm]
+            IFormFile file)
         {
-            if (!ModelState.IsValid)
+            if (restaurant == null)
                 return BadRequest(ModelState);
-
+            
+            if (file != null)
+            {
+                string  pathToFile = restaurant.Image;
+                const string pathToFolder = "/files/restaurants/logo/";
+                
+                var removeFile = new RemoveFileFromServer(pathToFile, _webHostEnvironment);
+                removeFile.Remove();
+                
+                var addImage = new AddImageToServer(file, pathToFolder, file.FileName, _webHostEnvironment);
+                addImage.Add();
+            }
+            
             _db.Update(restaurant);
             _db.SaveChanges();
             return Ok(restaurant);
