@@ -9,6 +9,7 @@ using ZakaZaka.Service.AddingFile;
 using ZakaZaka.Service.FormDataBinder;
 using ZakaZaka.Service.RemovingFile;
 using System.IO;
+using ZakaZaka.ViewModels;
 
 namespace ZakaZaka.Controllers
 {
@@ -26,9 +27,18 @@ namespace ZakaZaka.Controllers
         }
         
         [HttpGet]
-        public IEnumerable<Restaurant> Get()
+        public RestaurantManageViewModel Get()
         {
-            return _db.Restaurants.ToList();
+            var restaurants = _db.Restaurants.ToList();
+            var cuisines = _db.Cuisines.ToList();
+
+            var restaurantManage = new RestaurantManageViewModel()
+            {
+                Restaurants = restaurants,
+                Cuisines = cuisines
+            };
+
+            return restaurantManage;
         }
 
         [HttpGet("id")]

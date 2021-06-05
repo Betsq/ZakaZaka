@@ -32,6 +32,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\restuarantData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.ts" />
     <TypeScriptCompile Include="ClientApp\src\polyfills.ts" />
+    <TypeScriptCompile Include="ClientApp\src\ViewModel\RestaurantManageViewModel.ts" />
   </ItemGroup>
 
   <ItemGroup>

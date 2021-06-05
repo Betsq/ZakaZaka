@@ -1,6 +1,8 @@
 ﻿import { Component, OnInit} from "@angular/core";
 import {RestaurantDataService} from "../service/Data/restuarantData.service";
 import { Restaurant } from "../Model/restaurant";
+import {RestaurantManageViewModel} from "../../ViewModel/RestaurantManageViewModel";
+import {Cuisine} from "../Model/cuisine";
 
 @Component({
   selector: "restaurant-manage",
@@ -13,6 +15,7 @@ export class RestaurantManageComponent implements OnInit{
 
   restaurant: Restaurant = new Restaurant();
   restaurants: Restaurant[];
+  cuisines: Cuisine[];
 
   file: FileList = null;
 
@@ -29,7 +32,12 @@ export class RestaurantManageComponent implements OnInit{
   }
 
   loadProducts(){
-    this.dataService.Get().subscribe((data: Restaurant[]) => this.restaurants = data);
+    this.dataService.Get().subscribe((data: RestaurantManageViewModel) => this.setProducts(data));
+  }
+
+  setProducts(model: RestaurantManageViewModel){
+    this.restaurants = model.restaurants;
+    this.cuisines = model.cuisines;
   }
 
   save(){
