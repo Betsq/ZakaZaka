@@ -10,19 +10,24 @@ import {Slider} from "./home/addition/slider";
 import {Header} from "./header/header.component";
 import {Footer} from "./footer/footer.component";
 import { RestaurantManageComponent } from "./restaurant-manage/restaurantManage.component"
+import {CuisineManageComponent} from "./cusinine-manage/cuisineManage.component";
 import { RestaurantsComponent} from "./restaurants/restaurants.component";
 
 const appRoutes: Routes = [
-  { path: '', component: Home },
+  { path: "", component: Home },
   { path: "restaurantManage", component: RestaurantManageComponent},
+  { path: "cuisineManage", component: CuisineManageComponent},
   { path: "restaurants", component: RestaurantsComponent},
-  { path: '**', redirectTo: '/' }
+  { path: "**", redirectTo: "/" }
 
 ];
 
 @NgModule({
   imports: [BrowserModule, FormsModule,ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-  declarations: [AppComponent, Home, Slider, Header, Footer, RestaurantManageComponent, RestaurantsComponent],
+  declarations: [
+    AppComponent, Home, Slider, Header, Footer, RestaurantManageComponent, RestaurantsComponent,
+    CuisineManageComponent
+  ],
   bootstrap: [ AppComponent]
 })
 export class AppModule{
