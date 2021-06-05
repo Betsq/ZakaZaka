@@ -7,7 +7,7 @@ namespace ZakaZaka.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Image { get; set; }
+        public string PathToImage { get; set; }
         public int MinimumOrder { get; set; }
         public int CostDelivery { get; set; }
         public double TimeToDelivery { get; set; }

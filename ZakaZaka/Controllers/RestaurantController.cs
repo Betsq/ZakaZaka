@@ -61,7 +61,7 @@ namespace ZakaZaka.Controllers
             {
                 var addImage = new AddImageToServer(file, pathToFolder, file.FileName, _webHostEnvironment);
             
-                restaurant.Image = addImage.Add();
+                restaurant.PathToImage = addImage.Add();
             }
             
             _db.Restaurants.Add(restaurant);
@@ -82,7 +82,7 @@ namespace ZakaZaka.Controllers
             
             if (file != null)
             {
-                string  pathToFile = restaurant.Image;
+                string  pathToFile = restaurant.PathToImage;
                 const string pathToFolder = "/files/restaurants/logo/";
 
                 if (System.IO.File.Exists(_webHostEnvironment.WebRootPath + pathToFile)) 
@@ -93,7 +93,7 @@ namespace ZakaZaka.Controllers
                 
                 var addImage = new AddImageToServer(file, pathToFolder, file.FileName, _webHostEnvironment);
                   
-                restaurant.Image = addImage.Add();
+                restaurant.PathToImage = addImage.Add();
             }
             
             _db.Update(restaurant);
@@ -110,9 +110,9 @@ namespace ZakaZaka.Controllers
             if (restaurant == null)
                 return BadRequest();
 
-            if (System.IO.File.Exists(_webHostEnvironment.WebRootPath + restaurant.Image))
+            if (System.IO.File.Exists(_webHostEnvironment.WebRootPath + restaurant.PathToImage))
             {
-                string pathToFile = restaurant.Image;
+                string pathToFile = restaurant.PathToImage;
                 
                 var removeFile = new RemoveFileFromServer(pathToFile, _webHostEnvironment);
                 removeFile.Remove();
