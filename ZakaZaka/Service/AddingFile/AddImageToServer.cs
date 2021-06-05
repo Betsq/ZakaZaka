@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ZakaZaka.Service.AddingFile
 {
-    public class AddImageToServer : AddFile
+    public sealed class AddImageToServer : AddFile
     {
     private readonly IWebHostEnvironment _webHostEnvironment;
 

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ZakaZaka.Service.RemovingFile
 {
-    public class RemoveFileFromServer : RemoveFile
+    public sealed class RemoveFileFromServer : RemoveFile
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         
