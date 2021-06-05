@@ -89,7 +89,7 @@
       <div class="right-side">
         <a class="item" href="#" *ngFor="let rst of restaurants">
           <div class="item__image">
-            <img src="{{rst.image}}" alt="{{rst.name}}">
+            <img src="{{rst.pathToImage}}" alt="{{rst.name}}">
           </div>
           <div class="item__info">
             <div class="item__title">
@@ -123,10 +123,10 @@
                   <i id="rocket"></i>
                   Free
                 </div>
-                <div class="item__sub-desc" #freeDelivery>
+                <ng-template class="item__sub-desc" #freeDelivery>
                   <i id="rocket"></i>
                   {{rst.costDelivery}} $
-                </div>
+                </ng-template>
               </div>
               <div class="item__sub-item">
                 <div class="item__sub-title">
@@ -144,7 +144,7 @@
                 <div class="item__sub-desc" >
                   <i id="payment-card"></i>
                   <div *ngIf="rst.payToCard; else paymentCardNo">Yes</div>
-                  <div #paymentCardNo>No</div>
+                  <ng-template #paymentCardNo>No</ng-template>
                 </div>
               </div>
             </div>
