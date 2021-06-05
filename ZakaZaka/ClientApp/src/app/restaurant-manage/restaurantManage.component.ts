@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit} from "@angular/core";
 import {RestaurantDataService} from "../service/Data/restuarantData.service";
 import { Restaurant } from "../Model/restaurant";
-import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: "restaurant-manage",
@@ -33,45 +32,18 @@ export class RestaurantManageComponent implements OnInit{
     this.dataService.Get().subscribe((data: Restaurant[]) => this.restaurants = data);
   }
 
-  loadFile(files: FileList, idElement: string){
-    this.file = files;
-
-    let reader = new FileReader();
-    reader.readAsDataURL(this.file[0]);
-
-    reader.onload = function (){
-       let element = document.getElementById(idElement)
-       let result = reader.result;
-
-       element.setAttribute("src",  result.toString());
-    }
-  }
-
-  formGenerate(){
-    const formDate = new FormData();
-
-    formDate.append("restaurant", JSON.stringify(this.restaurant));
-
-    if(this.file !== null)
-      formDate.append("file", this.file[0], this.file[0].name);
-
-    return formDate;
-  }
-
   save(){
     const formDate = this.formGenerate();
 
-    if(this.restaurant.id == null){
-      this.dataService.Post(formDate)
-        .subscribe((data: Restaurant) => this.loadProducts())
-    }
-    else {
+    if(this.restaurant.id == null)
+      this.dataService.Post(formDate).subscribe((data: Restaurant) => this.loadProducts())
+    else
       this.dataService.Put(formDate).subscribe(data => this.loadProducts())
-    }
+
     this.cancel();
   }
 
-  editProduct(restaurant: Restaurant){
+  update(restaurant: Restaurant){
     this.restaurant = restaurant;
     this.show(false, false, true)
   }
@@ -84,6 +56,7 @@ export class RestaurantManageComponent implements OnInit{
 
   remove(restaurant: Restaurant){
     let confirmToDelete: boolean = confirm("Are you sure you want to delete this item?");
+
     if(confirmToDelete)
       this.dataService.Delete(restaurant.id).subscribe(data => this.loadProducts());
   }
@@ -97,5 +70,30 @@ export class RestaurantManageComponent implements OnInit{
     this.isShowProducts = showProducts;
     this.isShowCreate = showCreate;
     this.isShowUpdate = showUpdate;
+  }
+
+  loadFile(files: FileList, idElement: string){
+    this.file = files;
+
+    let reader = new FileReader();
+    reader.readAsDataURL(this.file[0]);
+
+    reader.onload = function (){
+      let element = document.getElementById(idElement)
+      let result = reader.result;
+
+      element.setAttribute("src",  result.toString());
+    }
+  }
+
+  formGenerate(){
+    const formDate = new FormData();
+
+    formDate.append("restaurant", JSON.stringify(this.restaurant));
+
+    if(this.file !== null)
+      formDate.append("file", this.file[0], this.file[0].name);
+
+    return formDate;
   }
 }
