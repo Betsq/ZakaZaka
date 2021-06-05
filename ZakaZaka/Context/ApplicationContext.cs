@@ -9,5 +9,6 @@ namespace ZakaZaka.Context
             :base(options) { }
             
        public DbSet<Restaurant> Restaurants { get; set; }
+       public DbSet<Cuisine> Cuisines { get; set; }
     }
 }
