@@ -1,6 +1,7 @@
 ﻿import {Component, OnInit} from "@angular/core";
-import { RestaurantDataService} from "../service/restuarantData.service";
+import { RestaurantDataService} from "../service/Data/restuarantData.service";
 import {Restaurant} from "../Model/restaurant";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: "restaurants",
@@ -11,13 +12,16 @@ import {Restaurant} from "../Model/restaurant";
 
 export class RestaurantsComponent implements OnInit{
   restaurants: Restaurant[];
-  constructor(private dataService: RestaurantDataService) {}
+
+  constructor(private dataService: RestaurantDataService) {
+    dataService.url = "/api/Restaurant";
+  }
 
   ngOnInit() {
     this.loadRestaurants()
   }
 
   loadRestaurants(){
-    this.dataService.getRestaurants().subscribe((data: Restaurant[]) => this.restaurants = data);
+    this.dataService.Get().subscribe((data: Restaurant[]) => this.restaurants = data);
   }
 }

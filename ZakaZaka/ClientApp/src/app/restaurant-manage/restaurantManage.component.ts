@@ -1,8 +1,7 @@
 ﻿import { Component, OnInit} from "@angular/core";
-import { RestaurantDataService } from "../service/restuarantData.service";
+import {RestaurantDataService} from "../service/Data/restuarantData.service";
 import { Restaurant } from "../Model/restaurant";
-import { NgForm } from "@angular/forms";
-import {Byte} from "@angular/compiler/src/util";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: "restaurant-manage",
@@ -22,14 +21,16 @@ export class RestaurantManageComponent implements OnInit{
   isShowCreate: boolean = false;
   isShowUpdate: boolean = false;
 
-  constructor(private dataService: RestaurantDataService) {}
+  constructor(private dataService: RestaurantDataService ) {
+    dataService.url = "/api/Restaurant";
+  }
 
   ngOnInit(){
     this.loadProducts();
   }
 
   loadProducts(){
-    this.dataService.getRestaurants().subscribe((data: Restaurant[]) => this.restaurants = data);
+    this.dataService.Get().subscribe((data: Restaurant[]) => this.restaurants = data);
   }
 
   loadFile(files: FileList, idElement: string){
@@ -61,11 +62,11 @@ export class RestaurantManageComponent implements OnInit{
     const formDate = this.formGenerate();
 
     if(this.restaurant.id == null){
-      this.dataService.createRestaurant(formDate)
+      this.dataService.Post(formDate)
         .subscribe((data: Restaurant) => this.loadProducts())
     }
     else {
-      this.dataService.updateRestaurant(formDate).subscribe(data => this.loadProducts())
+      this.dataService.Put(formDate).subscribe(data => this.loadProducts())
     }
     this.cancel();
   }
@@ -84,7 +85,7 @@ export class RestaurantManageComponent implements OnInit{
   remove(restaurant: Restaurant){
     let confirmToDelete: boolean = confirm("Are you sure you want to delete this item?");
     if(confirmToDelete)
-      this.dataService.removeRestaurant(restaurant.id).subscribe(data => this.loadProducts());
+      this.dataService.Delete(restaurant.id).subscribe(data => this.loadProducts());
   }
 
   add(){
