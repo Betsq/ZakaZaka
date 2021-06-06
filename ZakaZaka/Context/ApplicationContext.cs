@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ZakaZaka.Models;
+using ZakaZaka.Models.Restaurants;
 
 namespace ZakaZaka.Context
 {
@@ -9,6 +10,8 @@ namespace ZakaZaka.Context
             :base(options) { }
             
        public DbSet<Restaurant> Restaurants { get; set; }
+       public DbSet<RestaurantCuisine> RestaurantCuisines { get; set; }
        public DbSet<Cuisine> Cuisines { get; set; }
+       
     }
 }
