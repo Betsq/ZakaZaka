@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.4.21253.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.4.21253.1" />
@@ -25,6 +26,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\home\home.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\cuisine.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\restaurant.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Model\restaurantCuisine.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\restaurant-manage\restaurantManage.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\restaurants\restaurants.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\cuisineData.service.ts" />

@@ -9,6 +9,9 @@ using ZakaZaka.Service.AddingFile;
 using ZakaZaka.Service.FormDataBinder;
 using ZakaZaka.Service.RemovingFile;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
+using ZakaZaka.Models.Restaurants;
+using ZakaZaka.Service.RestaurantCuisines;
 using ZakaZaka.ViewModels;
 
 namespace ZakaZaka.Controllers
@@ -29,7 +32,9 @@ namespace ZakaZaka.Controllers
         [HttpGet]
         public RestaurantManageViewModel Get()
         {
-            var restaurants = _db.Restaurants.ToList();
+            var restaurants = _db.Restaurants
+                .Include(cuisine => cuisine.RestaurantCuisines).ToList();
+            
             var cuisines = _db.Cuisines.ToList();
 
             var restaurantManage = new RestaurantManageViewModel()
@@ -45,12 +50,15 @@ namespace ZakaZaka.Controllers
         public ActionResult<Restaurant> Get(int? id)
         {
             if (id == null)
-                return NotFound();
+                return BadRequest();
+
+            var restaurant = _db.Restaurants
+                .Include(cuisine => cuisine.RestaurantCuisines)
+                .FirstOrDefault(item => item.Id == id);
             
-            var restaurant = _db.Restaurants.Find(id);
 
             if (restaurant == null)
-                return NotFound();
+                return BadRequest();
                 
             return restaurant;
         }
@@ -60,7 +68,8 @@ namespace ZakaZaka.Controllers
             [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
             Restaurant restaurant,
             [FromForm]
-            IFormFile file)
+            IFormFile file
+        )
         {
             if (restaurant == null)
                 return BadRequest(ModelState);
@@ -85,10 +94,15 @@ namespace ZakaZaka.Controllers
             [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
             Restaurant restaurant,
             [FromForm]
-            IFormFile file)
+            IFormFile file,
+            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
+            List<Cuisine> cuisines
+            )
         {
             if (restaurant == null)
                 return BadRequest(ModelState);
+            
+            _db.Restaurants.Update(restaurant);
             
             if (file != null)
             {
@@ -105,8 +119,21 @@ namespace ZakaZaka.Controllers
                   
                 restaurant.PathToImage = addImage.Add();
             }
+
+            if (cuisines != null)
+            {
+                var restaurantCuisineService = new RestaurantCuisineService(restaurant, cuisines);
+
+                var listRestaurantCuisine = restaurantCuisineService.Add();
+                _db.RestaurantCuisines.AddRange(listRestaurantCuisine);
+
+                var restaurantCuisines = _db.RestaurantCuisines.Where(i => i.RestaurantId == restaurant.Id).ToList();
+                
+                var unnecessaryRestaurantCuisine = restaurantCuisineService.Remove(restaurantCuisines);
+                _db.RestaurantCuisines.RemoveRange(unnecessaryRestaurantCuisine);
+                
+            }
             
-            _db.Update(restaurant);
             _db.SaveChanges();
             return Ok(restaurant);
         }

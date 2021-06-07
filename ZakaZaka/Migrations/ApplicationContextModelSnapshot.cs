@@ -74,6 +74,7 @@ namespace ZakaZaka.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("RestaurantId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
