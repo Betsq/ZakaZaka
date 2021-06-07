@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -24,8 +25,10 @@ namespace ZakaZaka
             string connection = Configuration.GetConnectionString("DefaultConnection");
         
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
-                
-            services.AddControllers();  
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
             services.AddSpaStaticFiles(configuration =>
                 configuration.RootPath = "ClientApp/dist"
             );
