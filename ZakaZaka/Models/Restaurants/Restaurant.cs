@@ -12,5 +12,6 @@ namespace ZakaZaka.Models.Restaurants
         public double TimeToDelivery { get; set; }
         public bool PayToCard { get; set; }
         public List<RestaurantCuisine> RestaurantCuisines { get; set; }
+        public List<RestaurantFood> RestaurantFoods { get; set; }
     }
 }
