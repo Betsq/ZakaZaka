@@ -46,7 +46,6 @@ export class RestaurantManageComponent implements OnInit{
   }
 
   addCuisine(item: boolean, cuisine: Cuisine){
-    console.log(this.cuisinesPost);
     if(item === true){
       this.cuisinesPost.push(cuisine);
     }
@@ -56,6 +55,7 @@ export class RestaurantManageComponent implements OnInit{
       if(index > -1)
         this.cuisinesPost.splice(index, 1);
     }
+    console.log(this.cuisinesPost);
   }
 
   private getIndex(cuisines: Cuisine, cuisinesPost: Cuisine[]): number{

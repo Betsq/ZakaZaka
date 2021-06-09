@@ -31,6 +31,7 @@ namespace ZakaZaka.Service.RestaurantCuisines
                 restaurantCuisine.RestaurantId = _restaurant.Id;
                     
                 listOfRestaurantCuisine.Add(restaurantCuisine);
+                restaurantCuisine = new RestaurantCuisine();
             }
 
             return listOfRestaurantCuisine;
