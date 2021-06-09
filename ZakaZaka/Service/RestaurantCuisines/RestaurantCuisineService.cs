@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
-using Microsoft.EntityFrameworkCore;
-using ZakaZaka.Context;
 using ZakaZaka.Models;
 using ZakaZaka.Models.Restaurants;
 
@@ -11,8 +8,8 @@ namespace ZakaZaka.Service.RestaurantCuisines
 {
     public class RestaurantCuisineService : IAdd, IRemove
     {
-        private Restaurant _restaurant;
-        private List<Cuisine> _cuisines;
+        private readonly Restaurant _restaurant;
+        private readonly List<Cuisine> _cuisines;
         public RestaurantCuisineService(Restaurant restaurant, List<Cuisine> cuisines)
         {
             _restaurant = restaurant;
@@ -24,17 +21,16 @@ namespace ZakaZaka.Service.RestaurantCuisines
             Validate();
             
             var listOfRestaurantCuisine = new List<RestaurantCuisine>();
-            var restaurantCuisine = new RestaurantCuisine() { };
+            var restaurantCuisine = new RestaurantCuisine();
             
             foreach (var cuisine in _cuisines)
             {
-                if (!Exist(cuisine.Id))
-                {
-                    restaurantCuisine.CuisineId = cuisine.Id;
-                    restaurantCuisine.RestaurantId = _restaurant.Id;
+                if (Exist(cuisine.Id)) continue;
+                
+                restaurantCuisine.CuisineId = cuisine.Id;
+                restaurantCuisine.RestaurantId = _restaurant.Id;
                     
-                    listOfRestaurantCuisine.Add(restaurantCuisine);
-                }
+                listOfRestaurantCuisine.Add(restaurantCuisine);
             }
 
             return listOfRestaurantCuisine;
@@ -44,19 +40,15 @@ namespace ZakaZaka.Service.RestaurantCuisines
         {
             Validate();
 
-            var listOfRestaurantCuisine = restaurantCuisinesList;
-            
             foreach (var cuisine in _cuisines)
             {
-                var s = restaurantCuisinesList.FirstOrDefault(i => i.CuisineId == cuisine.Id);
+                var rstCuisine = restaurantCuisinesList.FirstOrDefault(i => i.CuisineId == cuisine.Id);
                 
-                if (s != null)
-                {
-                    listOfRestaurantCuisine.Remove(s);
-                }
+                if (rstCuisine != null)
+                    restaurantCuisinesList.Remove(rstCuisine);
             }
 
-            return listOfRestaurantCuisine;
+            return restaurantCuisinesList;
         }
 
         private void Validate()
@@ -68,7 +60,8 @@ namespace ZakaZaka.Service.RestaurantCuisines
 
         private bool Exist(int cuisineId)
         {
-            var hasCuisine = _restaurant.RestaurantCuisines.FirstOrDefault(item => item.CuisineId == cuisineId);
+            var hasCuisine = _restaurant.RestaurantCuisines
+                .FirstOrDefault(item => item.CuisineId == cuisineId);
 
             return hasCuisine != null;
         }
