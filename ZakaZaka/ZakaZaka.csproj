@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\cusinine-manage\style" />
+    <Folder Include="Service\Restaurant" />
     <Folder Include="wwwroot\files\restaurants\logo" />
   </ItemGroup>
 

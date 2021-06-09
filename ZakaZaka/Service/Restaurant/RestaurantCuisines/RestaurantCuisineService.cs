@@ -54,7 +54,7 @@ namespace ZakaZaka.Service.RestaurantCuisines
 
         private void Validate()
         {
-            if (_restaurant == null) throw new NullReferenceException("Restaurant is null");
+            if (_restaurant == null) throw new NullReferenceException("Restaurant is null" + _restaurant.ToString());
 
             if (_cuisines == null) throw new NullReferenceException("Cuisines is null");
         }
