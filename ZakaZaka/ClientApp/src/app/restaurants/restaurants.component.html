@@ -70,17 +70,9 @@
         <div class="sidebar__sort">
           <div class="sidebar__header">Other cuisine</div>
           <div>
-            <label class="sidebar__filter">
+            <label class="sidebar__filter" *ngFor="let cuisine of cuisines">
               <input type="checkbox">
-              American
-            </label>
-            <label class="sidebar__filter">
-              <input type="checkbox">
-              European
-            </label>
-            <label class="sidebar__filter">
-              <input type="checkbox">
-              Italy
+              {{cuisine.name}}
             </label>
           </div>
         </div>
@@ -97,8 +89,11 @@
                 <div class="item__name">
                   {{rst.name}}
                 </div>
-                <div class="item__cuisine">
+                <div class="item__cuisines">
                   <span>Cuisine:</span>
+                  <span class="item__cuisine" *ngFor="let cuisine of rst.restaurantCuisines">
+                    {{cuisine.cuisine.name}}
+                  </span>
                 </div>
               </div>
               <div class="item__rate">
@@ -124,8 +119,10 @@
                   Free
                 </div>
                 <ng-template class="item__sub-desc" #freeDelivery>
-                  <i id="rocket"></i>
-                  {{rst.costDelivery}} $
+                  <div class="item__sub-desc">
+                    <i id="rocket"></i>
+                    {{rst.costDelivery}} $
+                  </div>
                 </ng-template>
               </div>
               <div class="item__sub-item">

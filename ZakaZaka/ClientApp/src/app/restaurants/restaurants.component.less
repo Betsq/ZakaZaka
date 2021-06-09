@@ -114,13 +114,25 @@
   transition-duration: 0.350s;
 }
 
-.item__cuisine{
+.item__cuisines{
   font-size: 13px;
 
   span{
     color: #959595;
   }
 }
+
+.item__cuisine{
+  color: #000!important;
+
+  & ~ &:before{
+    content: "/";
+  }
+  &:before{
+    content: none;
+  }
+}
+
 
 .item__rate{
   margin-left: auto;
