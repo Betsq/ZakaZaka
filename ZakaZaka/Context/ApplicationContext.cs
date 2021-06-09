@@ -11,6 +11,7 @@ namespace ZakaZaka.Context
             
        public DbSet<Restaurant> Restaurants { get; set; }
        public DbSet<RestaurantCuisine> RestaurantCuisines { get; set; }
+       public DbSet<RestaurantFood> RestaurantFoods { get; set; }
        public DbSet<Cuisine> Cuisines { get; set; }
        
     }
