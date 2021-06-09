@@ -68,22 +68,36 @@ namespace ZakaZaka.Controllers
             [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
             Restaurant restaurant,
             [FromForm]
-            IFormFile file
+            IFormFile file,
+            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
+            List<Cuisine> cuisines
         )
         {
             if (restaurant == null)
                 return BadRequest(ModelState);
             
-            const string pathToFolder = "/files/restaurants/logo/";
-
+            _db.Restaurants.Add(restaurant);
+            /*Save the database so that when transferring restaurant to restaurantCuisine,
+             restaurantCuisine can link the table using the restaurant id*/
+            _db.SaveChanges();
+            
             if (file != null)
             {
+                const string pathToFolder = "/files/restaurants/logo/";
+                
                 var addImage = new AddImageToServer(file, pathToFolder, file.FileName, _webHostEnvironment);
             
                 restaurant.PathToImage = addImage.Add();
             }
             
-            _db.Restaurants.Add(restaurant);
+            if (cuisines != null)
+            {
+                var restaurantCuisineService = new RestaurantCuisineService(restaurant, cuisines);
+
+                var listRestaurantCuisine = restaurantCuisineService.Add();
+                _db.RestaurantCuisines.AddRange(listRestaurantCuisine);
+            }
+            
             _db.SaveChanges();
             
             return Ok(restaurant);

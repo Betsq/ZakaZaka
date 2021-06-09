@@ -71,7 +71,7 @@
       </div>
       <div class="group" *ngFor="let cs of cuisines">
         <div>
-          <input type="checkbox" (change)="addCuisine(cs)"> {{cs.name}}
+          <input type="checkbox" (change)="addCuisine($event.target.checked, cs)"> {{cs.name}}
         </div>
       </div>
 
