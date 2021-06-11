@@ -9,15 +9,17 @@ import {Home} from "./home/home.component";
 import {Slider} from "./home/addition/slider";
 import {Header} from "./header/header.component";
 import {Footer} from "./footer/footer.component";
-import { RestaurantManageComponent } from "./restaurant-manage/restaurantManage.component"
+import {RestaurantManageComponent} from "./restaurant-manage/restaurantManage.component"
 import {CuisineManageComponent} from "./cusinine-manage/cuisineManage.component";
-import { RestaurantsComponent} from "./restaurants/restaurants.component";
+import {RestaurantsComponent} from "./restaurants/restaurants.component";
+import {RestaurantFoodManageComponent} from "./restaurantFood-manage/restaurantFoodManage.component";
 
 const appRoutes: Routes = [
   { path: "", component: Home },
   { path: "restaurantManage", component: RestaurantManageComponent},
   { path: "cuisineManage", component: CuisineManageComponent},
   { path: "restaurants", component: RestaurantsComponent},
+  { path: "restaurantFoodManage", component: RestaurantFoodManageComponent},
   { path: "**", redirectTo: "/" }
 
 ];
@@ -26,9 +28,9 @@ const appRoutes: Routes = [
   imports: [BrowserModule, FormsModule,ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
   declarations: [
     AppComponent, Home, Slider, Header, Footer, RestaurantManageComponent, RestaurantsComponent,
-    CuisineManageComponent
+    CuisineManageComponent, RestaurantFoodManageComponent
   ],
-  bootstrap: [ AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule{
 
