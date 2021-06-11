@@ -27,10 +27,13 @@
     <TypeScriptCompile Include="ClientApp\src\app\Model\cuisine.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\restaurant.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\restaurantCuisine.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Model\restaurantFood.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\restaurant-manage\restaurantManage.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\restaurantFood-manage\restaurantFoodManage.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\restaurants\restaurants.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\cuisineData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\Data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\Data\restaurantFoodManageData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\restuarantData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.ts" />
     <TypeScriptCompile Include="ClientApp\src\polyfills.ts" />
@@ -39,8 +42,8 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\cusinine-manage\style" />
-    <Folder Include="Service\Restaurant" />
     <Folder Include="wwwroot\files\restaurants\logo" />
+    <Folder Include="wwwroot\files\restaurants\restaurantFood" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,12 +5,12 @@ import {RestaurantFood} from "../Model/restaurantFood";
 
 @Component({
   selector: "restaurant-food-manage",
-  templateUrl: "restaurantFoodManage.html",
+  templateUrl: "restaurantFoodManage.component.html",
   styleUrls: ["../restaurant-manage/styles/common.less", "../restaurant-manage/styles/group.less", "../restaurant-manage/styles/products.less"],
   providers: [RestaurantFoodManageDataService]
 })
 
-export class RestaurantFoodManage implements OnInit{
+export class RestaurantFoodManageComponent implements OnInit{
 
   restaurants: Restaurant[] = [];
   restaurantFoods: RestaurantFood[] = [];
@@ -20,13 +20,11 @@ export class RestaurantFoodManage implements OnInit{
 
   file: FileList = null;
 
-
   restaurantId: number;
   isShowProducts: boolean = true;
   isShowRestaurantFood: boolean = false;
   isShowCreate: boolean = false;
   isShowUpdate: boolean = false;
-
 
   constructor(private dataService: RestaurantFoodManageDataService) {
     dataService.url = "/api/RestaurantFood"
@@ -80,12 +78,6 @@ export class RestaurantFoodManage implements OnInit{
 
     if(confirmToDelete)
       this.dataService.Delete(restaurantFood.id).subscribe(() => this.loadProduct());
-  }
-
-  removeRestaurantFood(restaurantFood: RestaurantFood){
-    let index = this.restaurantFoods.indexOf(restaurantFood);
-    console.log(index);
-    this.restaurantFoods.slice(index, 1);
   }
 
   save(){
