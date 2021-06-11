@@ -1,4 +1,5 @@
 ﻿import {RestaurantCuisines} from "./restaurantCuisine";
+import {RestaurantFood} from "./restaurantFood";
 
 export class Restaurant{
   constructor(
@@ -9,6 +10,7 @@ export class Restaurant{
     public costDelivery?: number,
     public timeToDelivery?: number,
     public payToCard?: boolean,
-    public restaurantCuisines?: RestaurantCuisines[]
+    public restaurantCuisines?: RestaurantCuisines[],
+    public restaurantFoods?: RestaurantFood[]
   ) {}
 }
