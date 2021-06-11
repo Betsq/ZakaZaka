@@ -6,17 +6,17 @@ using ZakaZaka.Service.RestaurantServices;
 
 namespace ZakaZaka.Service.RestaurantCuisines
 {
-    public class RestaurantCuisineService : RelateTableOperations<Cuisine, RestaurantCuisine>
+    public sealed class RestaurantCuisineService : RelateTableOperations<Cuisine, RestaurantCuisine>
     {
         public RestaurantCuisineService(Restaurant restaurant, List<Cuisine> products) 
             : base(restaurant, products) { }
 
-        public override List<RestaurantCuisine> Add()
+        public override IEnumerable<RestaurantCuisine> Add()
         {
             Validate();
             
             var listOfRestaurantCuisine = new List<RestaurantCuisine>();
-            var restaurantCuisine = new RestaurantCuisine(){};
+            var restaurantCuisine = new RestaurantCuisine();
 
             foreach (var cuisine in _products.Where(cuisine => !Exist(cuisine.Id)))
             {
@@ -30,7 +30,7 @@ namespace ZakaZaka.Service.RestaurantCuisines
             return listOfRestaurantCuisine;
         }
 
-        public override List<RestaurantCuisine> Remove(List<RestaurantCuisine> productListFormDb)
+        public override IEnumerable<RestaurantCuisine> Remove(List<RestaurantCuisine> productListFormDb)
         {
             Validate();
 
@@ -45,7 +45,7 @@ namespace ZakaZaka.Service.RestaurantCuisines
             return productListFormDb;
         }
 
-        private protected override bool Exist(int productId)
+        private bool Exist(int productId)
         {
             var hasCuisine = _restaurant.RestaurantCuisines
                 .FirstOrDefault(item => item.CuisineId == productId);
