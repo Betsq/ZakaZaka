@@ -46,14 +46,16 @@ namespace ZakaZaka.Controllers
             return restaurantManage;
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public ActionResult<Restaurant> Get(int? id)
         {
             if (id == null)
                 return BadRequest();
 
             var restaurant = _db.Restaurants
-                .Include(cuisine => cuisine.RestaurantCuisines)
+                .Include(item => item.RestaurantFoods)
+                .Include(item => item.RestaurantCuisines)
+                .AsNoTracking()
                 .FirstOrDefault(item => item.Id == id);
             
 
