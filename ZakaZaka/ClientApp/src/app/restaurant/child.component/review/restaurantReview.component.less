@@ -1,0 +1,66 @@
+﻿@import "~src/style/all-var.less";
+@size-img: 20px;
+
+.comment{
+  box-sizing: border-box;
+  padding: 20px;
+}
+.comment__title{
+  font-size: 12px;
+  color: #656565;
+  a{
+    text-decoration: underline;
+  }
+}
+
+.comment__reviews-title{
+  margin-top: 40px;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+
+
+.comment__review{
+  padding: 15px 0;
+  border-bottom: 1px solid @border-color;
+  display: flex;
+}
+
+.comment__review:last-of-type{
+  border-bottom: none;
+}
+
+.review{
+  margin-left: 20px;
+}
+
+.review__img{
+  img{
+    max-height: 40px;
+  }
+}
+
+.review__title{
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.review__nickname{
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+}
+
+.review__date{
+  font-size: 12px;
+  color: #656565;
+  margin-left: 20px;
+}
+
+.review__comment{
+  font-size: 13px;
+  color: #959595;
+}
+
