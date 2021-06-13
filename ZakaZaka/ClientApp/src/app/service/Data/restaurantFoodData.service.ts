@@ -3,7 +3,7 @@ import {DataService} from "./Data.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable()
-export class RestaurantFoodManageDataService extends DataService{
+export class RestaurantFoodDataService extends DataService{
   constructor(http: HttpClient) {
     super(http);
   }
