@@ -26,20 +26,17 @@ namespace ZakaZaka.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Restaurant> Get()
+        public IEnumerable<RestaurantFood> Get()
         {
-            return _db.Restaurants
-                .Include(item => item.RestaurantFoods)
-                .ToList();
+            return _db.RestaurantFoods.ToList();
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Restaurant> Get(int id)
+        [HttpGet("{restaurantId}")]
+        public IEnumerable<RestaurantFood> Get(int restaurantId)
         {
-            var restaurant = _db.Restaurants.Include(item => item.RestaurantFoods)
-                .FirstOrDefault(item => item.Id == id);
-            
-            return restaurant != null ? restaurant : BadRequest();
+            var restaurantFood = _db.RestaurantFoods.Where(item => item.RestaurantId == restaurantId).ToList();
+
+            return restaurantFood;
         }
 
         [HttpPost]
