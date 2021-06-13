@@ -24,6 +24,7 @@
           <td class="products__name">{{rs?.id}}</td>
           <td class="products__buttons">
             <button class="products__change button-change" (click)="update(rs)">Change</button>
+            <a [routerLink]="['/restaurantFoodManage', rs.id]">Foods</a>
             <button class="button-remove" (click)="remove(rs)">Remove</button>
           </td>
         </tr>
