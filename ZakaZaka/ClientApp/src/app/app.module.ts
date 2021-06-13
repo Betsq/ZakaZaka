@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   { path: "restaurantManage", component: RestaurantManageComponent},
   { path: "cuisineManage", component: CuisineManageComponent},
   { path: "restaurants", component: RestaurantsComponent},
-  { path: "restaurantFoodManage", component: RestaurantFoodManageComponent},
+  { path: "restaurantFoodManage/:id", component: RestaurantFoodManageComponent},
   { path: "restaurant/:id", component: RestaurantComponent},
   { path: "restaurant/:id", component: RestaurantComponent, children: restaurantRoutes},
   { path: "**", redirectTo: "/" }
