@@ -33,7 +33,9 @@ namespace ZakaZaka.Controllers
         public RestaurantManageViewModel Get()
         {
             var restaurants = _db.Restaurants
-                .Include(cuisine => cuisine.RestaurantCuisines).ToList();
+                .Include(cuisine => cuisine.RestaurantCuisines)
+                .Include(item => item.RestaurantFoods)
+                .ToList();
             
             var cuisines = _db.Cuisines.ToList();
 
