@@ -4,12 +4,13 @@ import { Restaurant } from "../Model/restaurant";
 import {RestaurantManageViewModel} from "../../ViewModel/RestaurantManageViewModel";
 import {Cuisine} from "../Model/cuisine";
 import {RestaurantCuisines} from "../Model/restaurantCuisine";
+import {GenerateFormService} from "../service/generateData/generateForm.service";
 
 @Component({
   selector: "restaurant-manage",
   templateUrl: "./restaurantManage.component.html",
   styleUrls: ["/styles/common.less", "/styles/products.less", "/styles/group.less"],
-  providers: [RestaurantDataService]
+  providers: [RestaurantDataService, GenerateFormService]
 })
 
 export class RestaurantManageComponent implements OnInit{
@@ -28,7 +29,7 @@ export class RestaurantManageComponent implements OnInit{
   isShowCreate: boolean = false;
   isShowUpdate: boolean = false;
 
-  constructor(private dataService: RestaurantDataService ) {
+  constructor(private dataService: RestaurantDataService, private form: GenerateFormService ) {
     dataService.url = "/api/Restaurant";
   }
 
@@ -68,7 +69,8 @@ export class RestaurantManageComponent implements OnInit{
   }
 
   save(){
-    const formDate = this.formGenerate();
+    let data = [{name: "restaurant", param: this.restaurant}, {name: "cuisines", param: this.cuisinesPost}];
+    const formDate = this.form.generate(data, this.file)
 
     if(this.restaurant.id == null){
       this.dataService.Post(formDate).subscribe((data: Restaurant) => this.loadProducts());
@@ -129,22 +131,6 @@ export class RestaurantManageComponent implements OnInit{
 
       element.setAttribute("src",  result.toString());
     }
-  }
-
-  formGenerate(){
-    const formDate = new FormData();
-
-    this.restaurant.restaurantCuisines = this.restaurantCuisine;
-
-    formDate.append("restaurant", JSON.stringify(this.restaurant));
-
-    if(this.file !== null)
-      formDate.append("file", this.file[0], this.file[0].name);
-
-    if(this.cuisinesPost.length > 0)
-      formDate.append("cuisines", JSON.stringify(this.cuisinesPost));
-
-    return formDate;
   }
 
   hasCuisine(cuisineId: number) : boolean{
