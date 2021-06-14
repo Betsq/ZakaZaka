@@ -1,17 +1,22 @@
-﻿import {Component, Input} from "@angular/core";
+﻿import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {RestaurantFood} from "../../../../Model/restaurantFood";
+import {RestaurantDataShareService} from "../../../../service/restaurant/RestaurantDataShare.service";
 
 @Component({
   selector: "restaurant-menu",
   templateUrl: "restaurantMenu.component.html",
-  styleUrls: ["restaurantMenu.component.less"]
+  styleUrls: ["restaurantMenu.component.less"],
+  providers: []
 })
 
-export class RestaurantMenuComponent{
+export class RestaurantMenuComponent implements OnInit{
 
-  @Input() restaurantFoods: RestaurantFood[] = [];
-  constructor() {
+  restaurantFoods: RestaurantFood[];
+  constructor(private shareData: RestaurantDataShareService) {
   }
 
+  ngOnInit() {
+    this.shareData.getFoods().subscribe(data => this.restaurantFoods = data);
+  }
 }
