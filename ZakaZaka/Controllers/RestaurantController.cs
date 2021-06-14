@@ -57,6 +57,7 @@ namespace ZakaZaka.Controllers
             var restaurant = _db.Restaurants
                 .Include(item => item.RestaurantFoods)
                 .Include(item => item.RestaurantCuisines)
+                    .ThenInclude(item => item.Cuisine)
                 .AsNoTracking()
                 .FirstOrDefault(item => item.Id == id);
             
