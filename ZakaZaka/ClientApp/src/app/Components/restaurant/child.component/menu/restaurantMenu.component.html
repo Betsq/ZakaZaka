@@ -1,0 +1,46 @@
+﻿<div class="menu">
+  <div class="menu__item" *ngFor="let food of restaurantFoods">
+    <div class="menu__dish">
+      <div class="menu__img">
+        <img src="{{food.pathToImage}}" alt="{{food.name}}">
+      </div>
+      <div class="menu__title">
+        <div class="menu-title-title">
+          {{food.name}}
+        </div>
+        <div class="menu__ingredients--mobile">
+          {{food.ingredient}}
+        </div>
+      </div>
+      <div class="menu__sub-title">
+        <i class="coins menu__coins"></i> {{food.price}} $
+      </div>
+      <button class="menu__butt-order">
+        To order
+      </button>
+    </div>
+
+    <div class="menu__magnifying">
+      <div class="menu__dish">
+        <div class="menu__img">
+          <img src="{{food.pathToImage}}" alt="{{food.name}}">
+        </div>
+        <div class="menu__title">
+          <div class="menu__title-magnify">
+            {{food.name}}
+          </div>
+          <div class="menu__ingredients">
+            {{food.ingredient}}
+          </div>
+        </div>
+        <div class="menu__sub-title">
+          <i class="coins menu__coins"></i> {{food.price}} $
+        </div>
+        <button class="menu__butt-order">
+          To order
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>

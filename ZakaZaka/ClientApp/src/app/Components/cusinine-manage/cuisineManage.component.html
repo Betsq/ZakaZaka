@@ -1,0 +1,61 @@
+﻿<div class="products">
+  <div class="content">
+    <div class="products__list" *ngIf="isShowCuisine">
+      <div class="products__title">
+        List of cuisine
+      </div>
+      <button class="button-add" (click)="create()">
+        Add
+      </button>
+      <table class="products__table">
+        <thead>
+        <tr>
+          <td class="products__name">
+            Name
+          </td>
+          <td class="products__buttons">
+
+          </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let cs of cuisines">
+          <td class="products__name">{{cs?.name}}</td>
+          <td class="products__buttons">
+            <button class="products__change button-change" (click)="update(cs)">Change</button>
+            <button class="button-remove" (click)="remove(cs)">Remove</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="products__add" *ngIf="isShowCreate">
+      <div class="products__title">
+        Add restaurants
+      </div>
+      <div class="group">
+        <input class="group__input" type="text" [(ngModel)]="cuisine.name" required>
+        <span class="bar"></span>
+        <label class="group__title">Name</label>
+      </div>
+      <button class="button-add" (click)="save()">Add</button>
+      <button class="button-cancel" (click)="cancel()">Cancel</button>
+    </div>
+
+
+    <div class="products__update" *ngIf="isShowUpdate">
+      <div class="products__title">
+        Update restaurants
+      </div>
+
+      <div class="group">
+        <input class="group__input" type="text" [(ngModel)]="cuisine.name">
+        <span class="bar"></span>
+        <label class="group__title">Name</label>
+      </div>
+      <button class="button-change" (click)="save()">Update</button>
+      <button class="button-cancel" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

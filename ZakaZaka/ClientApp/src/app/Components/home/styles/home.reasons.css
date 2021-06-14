@@ -1,0 +1,74 @@
+﻿.reasons {
+  padding: 50px 0;
+}
+.reasons__title {
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+.reasons__title::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  display: block;
+  margin: auto 10px auto 0;
+  background: url("/img/home/heart.png") no-repeat;
+}
+.reasons__container {
+  display: flex;
+}
+.reasons__reason {
+  width: 33.33%;
+  box-sizing: border-box;
+}
+.reasons__reason::before {
+  content: "";
+  width: 72px;
+  height: 78px;
+  display: block;
+  margin: 0 auto;
+}
+.pizza-and-nothing::before {
+  background: url("/img/home/only_burger.png") no-repeat;
+}
+.no-calls::before {
+  background: url("/img/home/no_calls.png") no-repeat;
+}
+.points::before {
+  background: url("/img/home/thumbs_up.png") no-repeat;
+}
+.reasons__reason-title {
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+  margin: 12px 0;
+}
+.reasons__reason-note {
+  font-size: 14px;
+  color: #6e6e6e;
+  text-align: center;
+}
+@media (max-width: 991px) {
+  .reasons__reason {
+    padding: 0 10px;
+  }
+}
+@media (max-width: 771px) {
+  .reasons__container {
+    display: block;
+  }
+  .reasons__reason {
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+  }
+}
+@media (max-width: 401px) {
+  .reasons__title {
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+    text-align: center;
+  }
+}

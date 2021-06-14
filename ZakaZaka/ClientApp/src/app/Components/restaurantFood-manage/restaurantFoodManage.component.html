@@ -1,0 +1,96 @@
+﻿<div class="products">
+  <div class="content">
+
+    <div class="products__list" *ngIf="isShowFoods">
+      <div class="products__title">
+        List of foods
+      </div>
+      <button class="button-add" (click)="add()">
+        Add
+      </button>
+      <table class="products__table">
+        <thead>
+        <tr>
+          <td class="products__name">
+            Name
+          </td>
+          <td class="products__buttons"></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let rf of restaurantFoods">
+          <td class="products__name">{{rf?.name}}</td>
+          <td class="products__buttons">
+            <button class="products__change button-change" (click)="update(rf)">Update</button>
+            <button class="button-remove" (click)="remove(rf)">Remove</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="products__add" *ngIf="isShowCreate">
+      <div class="products__title">
+        Add foods for restaurant
+      </div>
+      <div class="group">
+        <input class="group__input" type="text" [(ngModel)]="restaurantFood.name" required>
+        <span class="bar"></span>
+        <label class="group__title">Name</label>
+      </div>
+      <div class="group">
+        <input class="group__input" type="number" [(ngModel)]="restaurantFood.price" required>
+        <span class="bar"></span>
+        <label class="group__title">Price</label>
+      </div>
+      <div class="group">
+        <input class="group__input" type="text" [(ngModel)]="restaurantFood.ingredient" required>
+        <span class="bar"></span>
+        <label class="group__title">Ingredient</label>
+      </div>
+
+      <div class="group">
+        <input type="file" id="file" accept="image/*" (change)="loadFile($event.target.files, 'preview-logo')" required>
+      </div>
+      <div class="group">
+        <img src="" id="preview-logo" style="width: 160px; height: 160px">
+      </div>
+
+      <button class="button-add" (click)="save()">Add</button>
+      <button class="button-cancel" (click)="cancel()">Cancel</button>
+    </div>
+
+
+    <div class="products__update" *ngIf="isShowUpdate">
+      <div class="products__title">
+        Update foods for restaurant
+      </div>
+
+      <div class="group">
+        <input class="group__input" type="text" [(ngModel)]="restaurantFood.name" required>
+        <span class="bar"></span>
+        <label class="group__title">Name</label>
+      </div>
+      <div class="group">
+        <input class="group__input" type="number" [(ngModel)]="restaurantFood.price" required>
+        <span class="bar"></span>
+        <label class="group__title">Price</label>
+      </div>
+      <div class="group">
+        <input class="group__input" type="text" [(ngModel)]="restaurantFood.ingredient" required>
+        <span class="bar"></span>
+        <label class="group__title">Ingredient</label>
+      </div>
+
+      <div class="group">
+        <input type="file" id="file" accept="image/*" (change)="loadFile($event.target.files, 'preview-logo')" required>
+      </div>
+      <div class="group">
+        <img src="{{restaurantFood.pathToImage}}" id="preview-logo" style="width: 160px; height: 160px">
+      </div>
+
+      <button class="button-change" (click)="save()">Update</button>
+      <button class="button-cancel" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+ </div>

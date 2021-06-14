@@ -1,0 +1,154 @@
+﻿
+<div class="main-restaurants">
+  <div class="content">
+    <div class="restaurants__header">
+      <select class="select">
+        <option value="1">By popularity</option>
+      </select>
+    </div>
+    <div style="display: flex;">
+      <aside class="sidebar">
+        <div class="sidebar__sort">
+          <div class="sidebar__header">Only show</div>
+
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            With shares
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Free shipping
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Payment by card to the courier
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Food for points
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Works now
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Works around the clock
+          </label>
+
+
+
+        </div>
+
+        <div class="sidebar__sort">
+          <div class="sidebar__header">Cuisine</div>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            All restaurants
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Sushi
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Pizza
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Shashlik
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Pie
+          </label>
+          <label class="sidebar__filter">
+            <input type="checkbox">
+            Burger
+          </label>
+        </div>
+        <div class="sidebar__sort">
+          <div class="sidebar__header">Other cuisine</div>
+          <div>
+            <label class="sidebar__filter" *ngFor="let cuisine of cuisines">
+              <input type="checkbox">
+              {{cuisine.name}}
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <div class="right-side">
+        <a class="item" href="#" *ngFor="let rst of restaurants">
+          <div class="item__image">
+            <img src="{{rst.pathToImage}}" alt="{{rst.name}}">
+          </div>
+          <div class="item__info">
+            <div class="item__title">
+              <div class="">
+                <div class="item__name">
+                  {{rst.name}}
+                </div>
+                <div class="item__cuisines">
+                  <span>Cuisine:</span>
+                  <span class="item__cuisine" *ngFor="let cuisine of rst.restaurantCuisines">
+                    {{cuisine.cuisine.name}}
+                  </span>
+                </div>
+              </div>
+              <div class="item__rate">
+                322 review
+              </div>
+            </div>
+            <div class="item__desc">
+              <div class="item__sub-item">
+                <div class="item__sub-title">
+                  min.order:
+                </div>
+                <div class="item__sub-desc" >
+                  <i id="coins"></i>
+                  {{rst.minimumOrder}} $
+                </div>
+              </div>
+              <div class="item__sub-item">
+                <div class="item__sub-title">
+                  delivery:
+                </div>
+                <div class="item__sub-desc" *ngIf="rst.costDelivery <= 0; else freeDelivery">
+                  <i id="rocket"></i>
+                  Free
+                </div>
+                <ng-template class="item__sub-desc" #freeDelivery>
+                  <div class="item__sub-desc">
+                    <i id="rocket"></i>
+                    {{rst.costDelivery}} $
+                  </div>
+                </ng-template>
+              </div>
+              <div class="item__sub-item">
+                <div class="item__sub-title">
+                  time to delivery:
+                </div>
+                <div class="item__sub-desc">
+                  <i id="time"></i>
+                  Until {{rst.timeToDelivery}} hours
+                </div>
+              </div>
+              <div class="item__sub-item">
+                <div class="item__sub-title">
+                  payment card:
+                </div>
+                <div class="item__sub-desc" >
+                  <i id="payment-card"></i>
+                  <div *ngIf="rst.payToCard; else paymentCardNo">Yes</div>
+                  <ng-template #paymentCardNo>No</ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+

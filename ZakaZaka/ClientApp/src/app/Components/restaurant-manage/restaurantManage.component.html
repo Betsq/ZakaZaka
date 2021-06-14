@@ -1,0 +1,132 @@
+﻿<div class="products">
+  <div class="content">
+    <div class="products__list" *ngIf="isShowProducts">
+      <div class="products__title">
+        List of restaurants
+      </div>
+      <button class="button-add" (click)="add()">
+        Add
+      </button>
+      <table class="products__table">
+        <thead>
+        <tr>
+          <td class="products__name">
+            Name
+          </td>
+          <td class="products__buttons">
+
+          </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let rs of restaurants">
+          <td class="products__name">{{rs?.name}}</td>
+          <td class="products__name">{{rs?.id}}</td>
+          <td class="products__buttons">
+            <button class="products__change button-change" (click)="update(rs)">Change</button>
+            <a [routerLink]="['/restaurantFoodManage', rs.id]">Foods</a>
+            <button class="button-remove" (click)="remove(rs)">Remove</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="products__add" *ngIf="isShowCreate">
+      <div class="products__title">
+        Add restaurants
+      </div>
+      <div class="group">
+        <input class="group__input" type="text" [(ngModel)]="restaurant.name" required>
+        <span class="bar"></span>
+        <label class="group__title">Name</label>
+      </div>
+      <div class="group">
+        <input class="group__input" type="number" [(ngModel)]="restaurant.minimumOrder" required>
+        <span class="bar"></span>
+        <label class="group__title">Minimum Order</label>
+      </div>
+      <div class="group">
+        <input class="group__input" type="number" [(ngModel)]="restaurant.costDelivery" required>
+        <span class="bar"></span>
+        <label class="group__title">Cost Delivery</label>
+      </div>
+      <div class="group">
+        <label class="">
+          Time To Delivery
+          <input class="" type="number" [(ngModel)]="restaurant.timeToDelivery" step="0.1" required>
+        </label>
+
+      </div>
+      <div class="group">
+        <label class="">
+          Pay To Card
+          <input class="" type="checkbox" [(ngModel)]="restaurant.payToCard" required>
+        </label>
+      </div>
+      <div class="group">
+        <input type="file" id="file" accept="image/*" (change)="loadFile($event.target.files, 'preview-logo')" required>
+      </div>
+      <div class="group">
+        <img src="" id="preview-logo" style="width: 160px; height: 160px">
+      </div>
+      <div class="group" *ngFor="let cs of cuisines">
+        <div>
+          <input type="checkbox" (change)="addCuisine($event.target.checked, cs)"> {{cs.name}}
+        </div>
+      </div>
+
+      <button class="button-add" (click)="save()">Add</button>
+      <button class="button-cancel" (click)="cancel()">Cancel</button>
+    </div>
+
+
+    <div class="products__update" *ngIf="isShowUpdate">
+      <div class="products__title">
+        Update restaurants
+      </div>
+
+      <div class="group">
+        <input class="group__input" type="text" [(ngModel)]="restaurant.name">
+        <span class="bar"></span>
+        <label class="group__title">Name</label>
+      </div>
+      <div class="group">
+        <input class="group__input" type="number" [(ngModel)]="restaurant.minimumOrder" required>
+        <span class="bar"></span>
+        <label class="group__title">Minimum Order</label>
+      </div>
+      <div class="group">
+        <input class="group__input" type="number" [(ngModel)]="restaurant.costDelivery" required>
+        <span class="bar"></span>
+        <label class="group__title">Cost Delivery</label>
+      </div>
+      <div class="group">
+        <label class="">
+          Time To Delivery
+          <input class="" type="number" [(ngModel)]="restaurant.timeToDelivery" step="0.1"  required>
+        </label>
+      </div>
+      <div class="group">
+        <label class="">
+          Pay To Card
+          <input class="" type="checkbox" [(ngModel)]="restaurant.payToCard" required>
+        </label>
+      </div>
+      <div class="group">
+        <input type="file" id="file" accept="image/*" (change)="loadFile($event.target.files, 'preview-logo')" required>
+      </div>
+      <div class="group">
+        <img src="{{restaurant.pathToImage}}" id="preview-logo" style="width: 160px; height: 160px">
+      </div>
+      <div class="group" *ngFor="let cs of cuisines">
+          <input type="checkbox" (click)="addCuisine($event.target.checked, cs)" *ngIf="hasCuisine(cs.id); else notHasCuisine" checked>
+
+          <ng-template #notHasCuisine><input type="checkbox" (click)="addCuisine($event.target.checked, cs)"></ng-template>
+        {{cs.name}}
+      </div>
+      <button class="button-change" (click)="save()">Update</button>
+      <button class="button-cancel" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

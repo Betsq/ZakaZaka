@@ -1,0 +1,127 @@
+﻿<div class="main-restaurant">
+  <div class="restaurant__background">
+    <div class="content" style="position: relative;">
+      <div class="restaurant__header">
+        <div class="header__container-img">
+          <img src="{{restaurant.pathToImage}}" alt="">
+        </div>
+        <div class="header__container-info">
+          <div class="item__title">
+            <div class="">
+              <div class="item__name">
+                {{restaurant.name}}
+              </div>
+              <div class="item__cuisines">
+                <span>Cuisine:</span>
+                <span class="item__cuisine" *ngFor="let cuisine of restaurant.restaurantCuisines">{{cuisine.name}}</span>
+              </div>
+            </div>
+            <div class="item__rate">
+              322 review
+            </div>
+          </div>
+          <div class="item__desc">
+            <div class="item__sub-item">
+              <div class="item__sub-title">
+                min.order:
+              </div>
+              <div class="item__sub-desc" *ngIf="restaurant.minimumOrder <= 0; else minOrder">
+                <i class="coins"></i>
+                Free
+              </div>
+              <ng-template #minOrder>
+                <div class="item__sub-desc">
+                  <i class="coins"></i>
+                  {{restaurant.minimumOrder}} $
+                </div>
+              </ng-template>
+            </div>
+            <div class="item__sub-item">
+              <div class="item__sub-title">
+                delivery:
+              </div>
+              <div class="item__sub-desc" *ngIf="restaurant.costDelivery <= 0; else costDelivery">
+                <i id="rocket"></i>
+                Free
+              </div>
+              <ng-template #costDelivery>
+                <div class="item__sub-desc">
+                  <i id="rocket"></i>
+                  {{restaurant.costDelivery}} $
+                </div>
+              </ng-template>
+            </div>
+            <div class="item__sub-item">
+              <div class="item__sub-title">
+                time to delivery:
+              </div>
+              <div class="item__sub-desc">
+                <i id="time"></i>
+                Until {{restaurant.timeToDelivery}} hours
+              </div>
+            </div>
+            <div class="item__sub-item">
+              <div class="item__sub-title">
+                payment card:
+              </div>
+              <div class="item__sub-desc">
+                <i id="payment-card"></i>
+                <div *ngIf="restaurant.payToCard === false; else paymentCard">No</div>
+                <ng-template #paymentCard>
+                  <div>Yes</div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="header__tabs">
+            <nav class="header__list">
+              <div class="header__item header__item-active">Menu</div>
+              <div class="header__item ">Reviews</div>
+              <div class="header__item ">About the institution</div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="main-restaurant__content">
+      <aside class="sidebar">
+        <input class="sidebar__search" type="text" placeholder="Search for a dish">
+        <div class="sidebar__list">
+          <div class="sidebar__title">
+            Hot <i class="arrow__down"></i>
+          </div>
+          <div class="sidebar__item">
+            dsadas
+          </div>
+          <div class="sidebar__item">
+            r2wr
+          </div>
+          <div class="sidebar__item">
+            sdfsfs
+          </div>
+        </div>
+        <div class="sidebar__list">
+          <div class="sidebar__title">
+            Hot <i class="arrow__down"></i>
+          </div>
+          <div class="sidebar__item">
+            dsadas
+          </div>
+          <div class="sidebar__item">
+            r2wr
+          </div>
+          <div class="sidebar__item">
+            sdfsfs
+          </div>
+        </div>
+      </aside>
+
+      <div class="right-side">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
