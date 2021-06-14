@@ -1,8 +1,9 @@
-﻿import {Component} from "@angular/core";
+﻿import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {Restaurant} from "../../Model/restaurant";
 import {RestaurantDataService} from "../../service/Data/restuarantData.service";
+import {RestaurantDataShareService} from "../../service/restaurant/RestaurantDataShare.service";
 
 @Component({
   selector: "restaurant",
@@ -11,20 +12,25 @@ import {RestaurantDataService} from "../../service/Data/restuarantData.service";
   providers: [RestaurantDataService]
 })
 
-export class RestaurantComponent{
+
+export class RestaurantComponent implements OnInit{
   id: number;
   restaurant: Restaurant;
 
-
   private routeSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private dataService: RestaurantDataService) {
+  constructor(private route: ActivatedRoute, private dataService: RestaurantDataService, private shareData: RestaurantDataShareService) {
     this.routeSubscription = route.params.subscribe(param => this.id = param["id"]);
-    dataService.url = "/api/Restaurant";
-    this.loadProduct();
   }
 
-  loadProduct(){
-    this.dataService.GetWithId(this.id).subscribe((data: Restaurant) => this.restaurant = data);
+  ngOnInit() {
+    this.dataService.url = "/api/Restaurant";
+    this.dataService.GetWithId(this.id).subscribe((data: Restaurant) => this.setRestaurant(data));
+  }
+
+  private setRestaurant(restaurant: Restaurant) : void{
+    this.restaurant = restaurant;
+    this.shareData.setRestaurantFoods(restaurant.restaurantFoods);
+    this.shareData.setRestaurant(restaurant);
   }
 }
