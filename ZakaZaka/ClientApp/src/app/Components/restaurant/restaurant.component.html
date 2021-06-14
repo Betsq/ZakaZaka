@@ -13,7 +13,7 @@
               </div>
               <div class="item__cuisines">
                 <span>Cuisine:</span>
-                <span class="item__cuisine" *ngFor="let cuisine of restaurant.restaurantCuisines">{{cuisine.name}}</span>
+                <span class="item__cuisine" *ngFor="let rc of restaurant.restaurantCuisines"> {{rc.cuisine.name}} </span>
               </div>
             </div>
             <div class="item__rate">
