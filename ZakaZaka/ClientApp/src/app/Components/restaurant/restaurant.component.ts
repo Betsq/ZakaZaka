@@ -1,9 +1,8 @@
 ﻿import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {Restaurant} from "../Model/restaurant";
-import {RestaurantDataService} from "../service/Data/restuarantData.service";
-import {RestaurantFood} from "../Model/restaurantFood";
+import {Restaurant} from "../../Model/restaurant";
+import {RestaurantDataService} from "../../service/Data/restuarantData.service";
 
 @Component({
   selector: "restaurant",

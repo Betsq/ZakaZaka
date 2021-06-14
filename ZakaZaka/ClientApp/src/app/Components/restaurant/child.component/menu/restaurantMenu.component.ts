@@ -1,6 +1,6 @@
 ﻿import {Component, Input} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {RestaurantFood} from "../../../Model/restaurantFood";
+import {RestaurantFood} from "../../../../Model/restaurantFood";
 
 @Component({
   selector: "restaurant-menu",

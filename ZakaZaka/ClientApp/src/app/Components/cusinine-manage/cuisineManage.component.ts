@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
-import { CuisineDataService } from "../service/Data/cuisineData.service";
-import { Cuisine} from "../Model/cuisine";
-import {Restaurant} from "../Model/restaurant";
+import { CuisineDataService } from "../../service/Data/cuisineData.service";
+import { Cuisine} from "../../Model/cuisine";
+import {Restaurant} from "../../Model/restaurant";
 
 @Component({
   selector: "cuisine",

@@ -1,11 +1,9 @@
 ﻿import {Component, OnInit} from "@angular/core";
-import {RestaurantFoodDataService} from "../service/Data/restaurantFoodData.service";
-import {Restaurant} from "../Model/restaurant";
-import {RestaurantFood} from "../Model/restaurantFood";
-import {RestaurantDataService} from "../service/Data/restuarantData.service";
+import {RestaurantFoodDataService} from "../../service/Data/restaurantFoodData.service";
+import {RestaurantFood} from "../../Model/restaurantFood";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
-import {GenerateFormService} from "../service/generateData/generateForm.service";
+import {GenerateFormService} from "../../service/generateForm/generateForm.service";
 
 @Component({
   selector: "restaurant-food-manage",

@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit} from "@angular/core";
-import {RestaurantDataService} from "../service/Data/restuarantData.service";
-import { Restaurant } from "../Model/restaurant";
-import {RestaurantManageViewModel} from "../../ViewModel/RestaurantManageViewModel";
-import {Cuisine} from "../Model/cuisine";
-import {RestaurantCuisines} from "../Model/restaurantCuisine";
-import {GenerateFormService} from "../service/generateData/generateForm.service";
+import {RestaurantDataService} from "../../service/Data/restuarantData.service";
+import { Restaurant } from "../../Model/restaurant";
+import {RestaurantManageViewModel} from "../../../ViewModel/RestaurantManageViewModel";
+import {Cuisine} from "../../Model/cuisine";
+import {RestaurantCuisines} from "../../Model/restaurantCuisine";
+import {GenerateFormService} from "../../service/generateForm/generateForm.service";
 
 @Component({
   selector: "restaurant-manage",

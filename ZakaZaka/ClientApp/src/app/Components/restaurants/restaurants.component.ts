@@ -1,8 +1,8 @@
 ﻿import {Component, OnInit} from "@angular/core";
-import { RestaurantDataService} from "../service/Data/restuarantData.service";
-import {Restaurant} from "../Model/restaurant";
-import {RestaurantManageViewModel} from "../../ViewModel/RestaurantManageViewModel";
-import {Cuisine} from "../Model/cuisine";
+import { RestaurantDataService} from "../../service/Data/restuarantData.service";
+import {Restaurant} from "../../Model/restaurant";
+import {RestaurantManageViewModel} from "../../../ViewModel/RestaurantManageViewModel";
+import {Cuisine} from "../../Model/cuisine";
 
 @Component({
   selector: "restaurants",
