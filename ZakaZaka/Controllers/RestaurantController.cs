@@ -58,7 +58,7 @@ namespace ZakaZaka.Controllers
                 .Include(item => item.RestaurantFoods)
                 .Include(item => item.RestaurantCuisines)
                     .ThenInclude(item => item.Cuisine)
-                .AsNoTracking()
+                .Include(item => item.RestaurantReviews)
                 .FirstOrDefault(item => item.Id == id);
             
 
