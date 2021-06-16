@@ -1,9 +1,9 @@
 ﻿import {Injectable} from "@angular/core";
 
-@Injectable()
+@Injectable({
+ providedIn: "root"
+})
 export class GenerateFormService{
-
-
   constructor() {}
 
   public generate(data: {name: string, param: any}[], file?: FileList) : FormData{
