@@ -64,3 +64,39 @@
   color: #959595;
 }
 
+.comment__send{
+  display: inline-block;
+  position: relative;
+  textarea{
+    box-sizing: border-box;
+    resize: none;
+    outline: none;
+    border: 1px solid @border-color;
+    border-radius: 5px;
+    padding: 10px 10px;
+
+    &:focus{
+      border: 1px solid @main-color-second;
+    }
+  }
+  button{
+    padding: 5px 38px;
+    background: @main-color-second;
+    color: @white;
+    position: absolute;
+    bottom: 15px;
+    right: 22px;
+    outline: none;
+    border-radius: 50px;
+    border: 0;
+    cursor: pointer;
+  }
+}
+
+::ng-deep .header__item:nth-child(1){
+  background: @white!important;
+}
+
+::ng-deep .header__item:nth-child(2){
+  background: @background-color!important;
+}

@@ -1,12 +1,17 @@
 ﻿<div class="comment">
+  <div class="comment__send">
+    <textarea name="" cols="70" rows="5" [(ngModel)]="reviewPost.review" #textAreaElement placeholder="Give feedback"></textarea>
+    <button (click)="add(textAreaElement)">Send</button>
+  </div>
+<!--
   <div class="comment__title">
     <div>You can leave feedback after in ordering</div>
     <a href="#">Go to the menu</a>
-  </div>
+  </div>-->
   <div class="comment__reviews-title">
-    "Here restaurant" - reviews
+    {{restaurant.name}} - reviews
   </div>
-  <div class="comment__review">
+  <div class="comment__review" *ngFor="let rv of reviews">
     <div class="review__img">
       <img src="avatra.jpg" alt="">
     </div>
@@ -16,11 +21,11 @@
           Sofia
         </div>
         <div class="review__date">
-          13 february, 03:27
+          {{rv.time | date:"MMM d, h:mm a"}}
         </div>
       </div>
       <div class="review__comment">
-        Delishes dbelisevo ohohohhoo
+        {{rv.review}}
       </div>
     </div>
   </div>
