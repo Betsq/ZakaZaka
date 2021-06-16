@@ -7,16 +7,15 @@ import {RestaurantDataShareService} from "../../../../service/restaurant/Restaur
   selector: "restaurant-menu",
   templateUrl: "restaurantMenu.component.html",
   styleUrls: ["restaurantMenu.component.less"],
-  providers: []
 })
 
 export class RestaurantMenuComponent implements OnInit{
 
-  restaurantFoods: RestaurantFood[];
+  restaurantFoods: RestaurantFood[] = [];
   constructor(private shareData: RestaurantDataShareService) {
   }
 
   ngOnInit() {
-    this.shareData.getFoods().subscribe(data => this.restaurantFoods = data);
+    this.shareData.getFoods().subscribe((data: RestaurantFood[]) => this.restaurantFoods = data);
   }
 }
