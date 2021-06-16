@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ZakaZaka.Context;
 using ZakaZaka.Models.Restaurants;
 
-namespace ZakaZaka.Service.RestaurantFoods
+namespace ZakaZaka.Service.RestaurantServices
 {
     public class RestaurantReviewService : IRestaurantReviewService
     {

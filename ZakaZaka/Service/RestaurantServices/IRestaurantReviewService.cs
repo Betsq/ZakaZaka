@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ZakaZaka.Models.Restaurants;
 
-namespace ZakaZaka.Service.RestaurantFoods
+namespace ZakaZaka.Service.RestaurantServices
 {
     public interface IRestaurantReviewService
     {
