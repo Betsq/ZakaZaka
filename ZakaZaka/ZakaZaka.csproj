@@ -19,29 +19,39 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\app.module.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\cusinine-manage\cuisineManage.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\footer\footer.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\header\header.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\home\addition\slider.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\home\home.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\cusinine-manage\cuisineManage.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\footer\footer.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\header\header.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\home\addition\slider.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\home\home.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\restaurant-manage\restaurantManage.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\restaurantFood-manage\restaurantFoodManage.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\restaurants\restaurants.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\restaurant\child.component\menu\restaurantMenu.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\restaurant\child.component\review\restaurantReview.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\restaurant\restaurant.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\cuisine.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\restaurant.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\restaurantCuisine.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\restaurantFood.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\restaurant-manage\restaurantManage.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\restaurantFood-manage\restaurantFoodManage.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\restaurants\restaurants.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Model\restaurantReview.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\cuisineData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\Data.service.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\service\Data\restaurantFoodManageData.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\Data\restaurantFoodData.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\Data\restaurantReviewData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\restuarantData.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\generateForm\generateForm.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\restaurant\IRestaurantDataShare.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\restaurant\IRestaurantReview.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\restaurant\RestaurantDataShare.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\restaurant\RestaurantReview.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.ts" />
     <TypeScriptCompile Include="ClientApp\src\polyfills.ts" />
     <TypeScriptCompile Include="ClientApp\src\ViewModel\RestaurantManageViewModel.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\cusinine-manage\style" />
+    <Folder Include="ClientApp\src\app\Components" />
     <Folder Include="wwwroot\files\restaurants\logo" />
     <Folder Include="wwwroot\files\restaurants\restaurantFood" />
   </ItemGroup>
