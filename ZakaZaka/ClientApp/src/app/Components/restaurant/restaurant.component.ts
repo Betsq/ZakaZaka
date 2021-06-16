@@ -9,6 +9,7 @@ import {RestaurantDataShareService} from "../../service/restaurant/RestaurantDat
   selector: "restaurant",
   templateUrl: "restaurant.component.html",
   styleUrls: ["restaurant.component.less"],
+  styles: [``],
   providers: [RestaurantDataService]
 })
 
@@ -32,5 +33,15 @@ export class RestaurantComponent implements OnInit{
     this.restaurant = restaurant;
     this.shareData.setRestaurantFoods(restaurant.restaurantFoods);
     this.shareData.setRestaurant(restaurant);
+    this.shareData.setComments(restaurant.restaurantReviews);
+  }
+
+  public setStyleTabs(element: any): void{
+    let buttonEl = document.getElementsByClassName("header__item");
+
+    for(let i = 0; i < buttonEl.length; i++)
+      buttonEl[i].setAttribute("style", "background: #fff!important");
+
+    element.setAttribute("style", "background: #edefec!important");
   }
 }

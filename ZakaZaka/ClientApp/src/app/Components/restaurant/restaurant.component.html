@@ -75,9 +75,9 @@
           </div>
           <div class="header__tabs">
             <nav class="header__list">
-              <div class="header__item header__item-active">Menu</div>
-              <div class="header__item ">Reviews</div>
-              <div class="header__item ">About the institution</div>
+              <a class="header__item" #tab1 (click)="setStyleTabs(tab1)" [routerLink]="['/restaurant/' + restaurant.id + '/menu']">Menu</a>
+              <a class="header__item" #tab2 (click)="setStyleTabs(tab2)" [routerLink]="['/restaurant/' + restaurant.id + '/reviews']">Reviews</a>
+              <a class="header__item">About the institution</a>
             </nav>
           </div>
         </div>
