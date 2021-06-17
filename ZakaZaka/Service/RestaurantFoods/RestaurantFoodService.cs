@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using ZakaZaka.Context;
-using ZakaZaka.Models;
 using ZakaZaka.Models.Restaurants;
 using ZakaZaka.Service.AddingFile;
 using ZakaZaka.Service.RemovingFile;

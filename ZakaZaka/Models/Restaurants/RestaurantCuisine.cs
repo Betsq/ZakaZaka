@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace ZakaZaka.Models.Restaurants
+﻿namespace ZakaZaka.Models.Restaurants
 {
     public class RestaurantCuisine
     {

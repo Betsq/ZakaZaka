@@ -3,12 +3,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ZakaZaka.Context;
 using ZakaZaka.Models.Restaurants;
 using ZakaZaka.Service.FormDataBinder;
 using ZakaZaka.Service.RestaurantFoods;
-using ZakaZaka.Models.Restaurants;
 
 namespace ZakaZaka.Controllers
 {
