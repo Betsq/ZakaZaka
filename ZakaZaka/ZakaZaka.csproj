@@ -19,6 +19,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\app.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Components\authorization\authorization.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Components\cusinine-manage\cuisineManage.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Components\footer\footer.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Components\header\header.component.ts" />
@@ -51,7 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\Components" />
     <Folder Include="wwwroot\files\restaurants\logo" />
     <Folder Include="wwwroot\files\restaurants\restaurantFood" />
   </ItemGroup>

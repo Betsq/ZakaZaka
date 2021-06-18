@@ -18,6 +18,8 @@ import {RestaurantComponent} from "./Components/restaurant/restaurant.component"
 import {RestaurantMenuComponent} from "./Components/restaurant/child.component/menu/restaurantMenu.component"
 import {RestaurantReviewComponent} from "./Components/restaurant/child.component/review/restaurantReview.component";
 
+import {AuthorizationComponent} from "./Components/authorization/authorization.component";
+
 //restaurant's the child components
 const restaurantRoutes: Routes = [
   {path: "menu", component: RestaurantMenuComponent},
@@ -41,7 +43,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent, Home, Slider, Header, Footer, RestaurantManageComponent, RestaurantsComponent,
     CuisineManageComponent, RestaurantFoodManageComponent, RestaurantComponent, RestaurantMenuComponent,
-    RestaurantReviewComponent
+    RestaurantReviewComponent, AuthorizationComponent
   ],
   bootstrap: [AppComponent]
 })
