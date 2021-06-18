@@ -11,8 +11,8 @@
     </div>
 
     <div class="header__container-authentication">
-      <a class="header__sign-in" href="#">Sign in</a>
-      <a class="header__register" href="#">Register</a>
+      <a class="header__sign-in" (click)="authorization(true, false)">Sign in</a>
+      <a class="header__register" (click)="authorization(false, true)">Sign up</a>
     </div>
   </div>
 </div>
@@ -30,3 +30,5 @@
     <button class="header-bottom__find-mobile" type="submit">Find a restaurant</button>
   </div>
 </div>
+
+<authorization [showSignIn]="showSignIn" [showSignUp]="showSignUp" (closeAuthorization)="authorization(false, false)" (changeAuthorizationForm)="changeAuthorizationForm()"></authorization>

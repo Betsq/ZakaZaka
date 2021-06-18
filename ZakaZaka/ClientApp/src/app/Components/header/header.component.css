@@ -37,6 +37,7 @@
   font-weight: 700;
   text-transform: uppercase;
   transition-duration: 0.3s;
+  cursor: pointer;
 }
 .header__sign-in:hover,
 .header__register:hover {
