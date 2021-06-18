@@ -1,0 +1,149 @@
+﻿@import "~src/style/all-var.less";
+
+.sign{
+  position: relative;
+}
+
+.btn__close{
+  display: block;
+  height: 26px;
+  width: 26px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: url(/img/authorization/x-circle.svg) no-repeat;
+  background-size: 26px 26px;
+  cursor: pointer;
+}
+
+.sign__overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,0.7);
+  z-index:1;
+  cursor: pointer;
+}
+
+.sign__back, .sign
+{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  z-index:1;
+}
+
+.sign__content{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: @white;
+  border-radius: @radius-sides;
+  width: 450px;
+  height: 700px;
+  margin: 0 auto;
+  -webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0 0 10px 1px rgba(0,0,0,0.15);
+  box-shadow: 0 0 10px 1px rgba(0,0,0,0.15);
+  z-index: 5;
+}
+
+.sign__title{
+  font-size: 32px;
+  font-weight: 700;
+  color: #3e403f;
+  margin-top: 50px;
+}
+
+.sign__logo{
+  font-family:"Noto Sans JP";
+  font-size: 48px;
+  color: #3e403f;
+  margin: 20px 0 45px;
+}
+
+.sign__form{
+  width: 70%;
+}
+
+.sign__container-input{
+  position: relative;
+  margin: 10px 0;
+  input{
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid @border-color;
+    padding: 7px 8px;
+    margin: 15px 0;
+
+    &:focus~label,
+    &:not(:focus):valid~label{
+      top: -5px;
+      transition-duration: 0.3s;
+    }
+
+    &:focus{
+      border-bottom: 2px solid @main-color;
+    }
+  }
+
+  label{
+    position: absolute;
+    left: 8px;
+    top: 22px;
+    color: @white-grey;
+    pointer-events: none;
+    transition-duration: 0.3s;
+  }
+
+  input, label{
+    box-sizing: border-box;
+  }
+}
+
+.sign__show-password{
+  position: absolute;
+  right: 20px;
+  top: 19px;
+  object-fit: cover;
+  width: 22px;
+  height: 19px;
+  background: url("/img/authorization/eye.png") no-repeat;
+  background-size: 22px 19px;
+  cursor: pointer;
+}
+
+.sign__button{
+  color: @white;
+  padding: 10px 0;
+  border-radius: 50px;
+  cursor: pointer;
+  background: rgb(253,202,29);
+  background: linear-gradient(90deg, rgba(253,202,29,1) 0%, rgba(254,143,51,1) 100%);
+  text-align: center;
+}
+
+.sign__sub-title{
+  margin-top: auto;
+  padding: 35px 0;
+  font-family:"Noto Sans JP";
+  text-align: center;
+  span{
+    color: @main-color;
+    cursor: pointer;
+    user-select: none;
+    transition-duration: 0.2s;
+    &:hover{
+      color: @main-color-second;
+    }
+  }
+}

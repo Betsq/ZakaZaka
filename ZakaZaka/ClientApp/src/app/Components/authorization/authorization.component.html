@@ -1,0 +1,63 @@
+﻿<div class="sign" *ngIf="showSignIn">
+  <div class="sign__overlay" (click)="closeAuthorization.emit()"></div>
+  <div class="sign__content">
+    <i class="btn__close" (click)="closeAuthorization.emit()"></i>
+    <div class="sign__title">
+      Welcome
+    </div>
+    <div class="sign__logo">
+      ZakaZaka
+    </div>
+    <div class="sign__form">
+      <div class="sign__container-input">
+        <input type="text" required>
+        <label>Email</label>
+      </div>
+      <div class="sign__container-input">
+        <i class="sign__show-password" (click)="isShowPassword(passwordLogin)"></i>
+        <input type="password" required #passwordLogin>
+        <label>Password</label>
+      </div>
+      <div class="sign__button">
+        Login
+      </div>
+    </div>
+    <div class="sign__sub-title">
+      Don't have an account? <span (click)="changeAuthorizationForm.emit()">Sign up</span>
+    </div>
+  </div>
+</div>
+
+<div class="sign" *ngIf="showSignUp">
+  <div class="sign__overlay" (click)="closeAuthorization.emit()"></div>
+  <div class="sign__content">
+    <i class="btn__close" (click)="closeAuthorization.emit()"></i>
+    <div class="sign__title">
+      Welcome
+    </div>
+    <div class="sign__logo">
+      ZakaZaka
+    </div>
+    <div class="sign__form">
+      <div class="sign__container-input">
+        <input type="text" required>
+        <label>Email</label>
+      </div>
+      <div class="sign__container-input">
+        <i class="sign__show-password" (click)="isShowPassword(passwordRegister)"></i>
+        <input type="password" required #passwordRegister>
+        <label>Password</label>
+      </div>
+      <div class="sign__container-input">
+        <input type="password" required>
+        <label>Confirm the password</label>
+      </div>
+      <div class="sign__button">
+        Register
+      </div>
+    </div>
+    <div class="sign__sub-title">
+      Do you have an account? <span (click)="changeAuthorizationForm.emit()">Sign in</span>
+    </div>
+  </div>
+</div>
