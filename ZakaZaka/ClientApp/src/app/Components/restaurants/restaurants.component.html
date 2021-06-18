@@ -79,7 +79,7 @@
       </aside>
 
       <div class="right-side">
-        <a class="item" href="#" *ngFor="let rst of restaurants">
+        <a class="item" [routerLink]="['/restaurant/' + rst.id + '/menu']" *ngFor="let rst of restaurants">
           <div class="item__image">
             <img src="{{rst.pathToImage}}" alt="{{rst.name}}">
           </div>
