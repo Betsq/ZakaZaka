@@ -48,7 +48,7 @@
   background: @white;
   border-radius: @radius-sides;
   width: 450px;
-  height: 700px;
+  min-height: 700px;
   margin: 0 auto;
   -webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,0.15);
   -moz-box-shadow: 0 0 10px 1px rgba(0,0,0,0.15);
@@ -145,5 +145,12 @@
     &:hover{
       color: @main-color-second;
     }
+  }
+}
+
+@media (max-width: 551px) {
+  .sign__content{
+    width: 90%;
+    left: 48%;
   }
 }
