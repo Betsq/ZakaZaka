@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ZakaZaka.Models;
+using ZakaZaka.Models.Identity;
 using ZakaZaka.Models.Restaurants;
 
 namespace ZakaZaka.Context
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<User>
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             :base(options) { }
