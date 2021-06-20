@@ -1,11 +1,20 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using ZakaZaka.Context;
+using ZakaZaka.Models;
+using ZakaZaka.Models.Identity;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ZakaZaka.Auth;
+using ZakaZaka.Helpers;
 
 namespace ZakaZaka
 {
@@ -20,17 +29,73 @@ namespace ZakaZaka
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        { 
+        {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-        
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
+            
+            services.AddSingleton<IJwtFactory, JwtFactory>();
+            
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
+
             services.AddSpaStaticFiles(configuration =>
                 configuration.RootPath = "ClientApp/dist"
             );
+
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+
+            services.Configure<JwtIssuerOptions>(option =>
+            {
+                option.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+                option.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+                option.SigningCredentials = new SigningCredentials(Tokens.SigningKey(), SecurityAlgorithms.HmacSha256);
+            });
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
+
+                ValidateAudience = true,
+                ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
+
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = Tokens.SigningKey(),
+
+                RequireExpirationTime = false,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+            };
+
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(configureOptions =>
+            {
+                configureOptions.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+                configureOptions.TokenValidationParameters = tokenValidationParameters;
+                configureOptions.SaveToken = true;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiUser", policy => policy
+                    .RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
+            });
+            
+            var builder = services.AddIdentityCore<User>(o =>
+            {
+                // configure identity options
+                o.Password.RequireDigit = false;
+                o.Password.RequireLowercase = false;
+                o.Password.RequireUppercase = false;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+            });
+            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
+            builder.AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
         }
 
 
@@ -49,7 +114,9 @@ namespace ZakaZaka
             }
 
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
+           
             
             app.UseEndpoints(endpoints =>
             {
