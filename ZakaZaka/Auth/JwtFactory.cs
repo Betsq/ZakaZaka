@@ -30,12 +30,13 @@ namespace ZakaZaka.Auth
                 identity.FindFirst(Helpers.Constants.Strings.JwtClaimIdentifiers.Id)
             };
 
+            var notBefore = DateTime.UtcNow;
             // Create the JWT security token and encode it.
             var jwt = new JwtSecurityToken(
                 issuer: _jwtOptions.Issuer,
                 audience: _jwtOptions.Audience,
                 claims: claims,
-                notBefore: _jwtOptions.NotBefore,
+                notBefore: notBefore,
                 expires: _jwtOptions.Expiration,
                 signingCredentials: _jwtOptions.SigningCredentials);
 
