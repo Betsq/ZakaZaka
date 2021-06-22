@@ -10,10 +10,18 @@
       <input class="header__search" type="text" placeholder="Search">
     </div>
 
-    <div class="header__container-authentication">
+    <div class="header__container-authentication" *ngIf="!userLogin; else login" >
       <a class="header__sign-in" (click)="authorization(true, false)">Sign in</a>
       <a class="header__register" (click)="authorization(false, true)">Sign up</a>
     </div>
+    <ng-template #login>
+      <div style="margin: auto 0;">
+        Hello, {{userName}}
+      </div>
+      <div class="header__container-authentication">
+        <a class="header__register" (click)="logOut()">Log Out</a>
+      </div>
+    </ng-template>
   </div>
 </div>
 <div class="header-bottom">
@@ -30,5 +38,6 @@
     <button class="header-bottom__find-mobile" type="submit">Find a restaurant</button>
   </div>
 </div>
-
-<authorization [showSignIn]="showSignIn" [showSignUp]="showSignUp" (closeAuthorization)="authorization(false, false)" (changeAuthorizationForm)="changeAuthorizationForm()"></authorization>
+<authorization [showSignIn]="showSignIn" [showSignUp]="showSignUp"
+               (closeAuthorization)="authorization(false, false)"
+               (changeAuthorizationForm)="changeAuthorizationForm()" (isUserLogin)="setIsLogin($event)"></authorization>
