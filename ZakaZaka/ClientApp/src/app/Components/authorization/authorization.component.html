@@ -1,7 +1,7 @@
 ﻿<div class="sign" *ngIf="showSignIn">
-  <div class="sign__overlay" (click)="closeAuthorization.emit()"></div>
+  <div class="sign__overlay" (click)="closeForm()"></div>
   <div class="sign__content">
-    <i class="btn__close" (click)="closeAuthorization.emit()"></i>
+    <i class="btn__close" (click)="closeForm()"></i>
     <div class="sign__title">
       Welcome
     </div>
@@ -9,29 +9,32 @@
       ZakaZaka
     </div>
     <div class="sign__form">
+      <div class="sign__error" *ngIf="showErrorMessage">
+        {{errorMessage}}
+      </div>
       <div class="sign__container-input">
-        <input type="text" required>
+        <input type="text" required [(ngModel)]="loginBody.userName">
         <label>Email</label>
       </div>
       <div class="sign__container-input">
         <i class="sign__show-password" (click)="isShowPassword(passwordLogin)"></i>
-        <input type="password" required #passwordLogin>
+        <input type="password" required #passwordLogin [(ngModel)]="loginBody.password">
         <label>Password</label>
       </div>
-      <div class="sign__button">
+      <div class="sign__button" (click)="login()">
         Login
       </div>
     </div>
     <div class="sign__sub-title">
-      Don't have an account? <span (click)="changeAuthorizationForm.emit()">Sign up</span>
+      Don't have an account? <span (click)="changeForm()">Sign up</span>
     </div>
   </div>
 </div>
 
 <div class="sign" *ngIf="showSignUp">
-  <div class="sign__overlay" (click)="closeAuthorization.emit()"></div>
+  <div class="sign__overlay" (click)="closeForm()"></div>
   <div class="sign__content">
-    <i class="btn__close" (click)="closeAuthorization.emit()"></i>
+    <i class="btn__close" (click)="closeForm()"></i>
     <div class="sign__title">
       Welcome
     </div>
@@ -40,32 +43,32 @@
     </div>
     <div class="sign__form">
       <div class="sign__container-input">
-        <input type="text" required>
+        <input type="text" required [(ngModel)]="registerBody.firstName">
         <label>First Name</label>
       </div>
       <div class="sign__container-input">
-        <input type="text" required>
+        <input type="text" required [(ngModel)]="registerBody.lastName">
         <label>Last Name</label>
       </div>
       <div class="sign__container-input">
-        <input type="text" required>
+        <input type="text" required [(ngModel)]="registerBody.email">
         <label>Email</label>
       </div>
       <div class="sign__container-input">
         <i class="sign__show-password" (click)="isShowPassword(passwordRegister)"></i>
-        <input type="password" required #passwordRegister>
+        <input type="password" required #passwordRegister [(ngModel)]="registerBody.password">
         <label>Password</label>
       </div>
       <div class="sign__container-input">
-        <input type="password" required>
+        <input type="password" required [(ngModel)]="registerBody.confirmPassword">
         <label>Confirm the password</label>
       </div>
-      <div class="sign__button">
+      <div class="sign__button" (click)="register()">
         Register
       </div>
     </div>
     <div class="sign__sub-title">
-      Do you have an account? <span (click)="changeAuthorizationForm.emit()">Sign in</span>
+      Do you have an account? <span (click)="changeForm()">Sign in</span>
     </div>
   </div>
 </div>
