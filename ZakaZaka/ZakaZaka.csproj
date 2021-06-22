@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.4.21253.1" />
@@ -36,11 +39,17 @@
     <TypeScriptCompile Include="ClientApp\src\app\Model\restaurantCuisine.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\restaurantFood.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Model\restaurantReview.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Model\user.login.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Model\user.registration.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\auth\auth.guard.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\auth\user.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\auth\token.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\cuisineData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\Data.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\restaurantFoodData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\restaurantReviewData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\Data\restuarantData.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\service\error\error-handle.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\generateForm\generateForm.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\restaurant\IRestaurantDataShare.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\service\restaurant\IRestaurantReview.service.ts" />

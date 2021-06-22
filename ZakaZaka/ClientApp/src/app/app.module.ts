@@ -19,6 +19,7 @@ import {RestaurantMenuComponent} from "./Components/restaurant/child.component/m
 import {RestaurantReviewComponent} from "./Components/restaurant/child.component/review/restaurantReview.component";
 
 import {AuthorizationComponent} from "./Components/authorization/authorization.component";
+import {AuthGuardService} from "./service/auth/auth.guard.service";
 
 //restaurant's the child components
 const restaurantRoutes: Routes = [
@@ -28,7 +29,7 @@ const restaurantRoutes: Routes = [
 
 const appRoutes: Routes = [
   { path: "", component: Home },
-  { path: "restaurantManage", component: RestaurantManageComponent},
+  { path: "restaurantManage", component: RestaurantManageComponent, canActivate: [AuthGuardService]},
   { path: "cuisineManage", component: CuisineManageComponent},
   { path: "restaurants", component: RestaurantsComponent},
   { path: "restaurantFoodManage/:id", component: RestaurantFoodManageComponent},
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
     CuisineManageComponent, RestaurantFoodManageComponent, RestaurantComponent, RestaurantMenuComponent,
     RestaurantReviewComponent, AuthorizationComponent
   ],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule{}
