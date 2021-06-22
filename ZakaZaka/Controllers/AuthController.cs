@@ -1,11 +1,8 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using ZakaZaka.Auth;
 using ZakaZaka.Helpers;
@@ -25,7 +22,8 @@ namespace ZakaZaka.Controllers
         private readonly JwtIssuerOptions _jwtOptions;
         private IConfiguration Configuration { get; }
 
-        public AuthController(UserManager<User> userManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IConfiguration configuration)
+        public AuthController(UserManager<User> userManager, IJwtFactory jwtFactory,
+            IOptions<JwtIssuerOptions> jwtOptions, IConfiguration configuration)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
@@ -40,16 +38,19 @@ namespace ZakaZaka.Controllers
                 return BadRequest(Errors.AddErrorToModelState("login_failure", "Incorrect data transferred.", ModelState));
 
             var authService = new AuthService(_userManager, _jwtFactory);
-            
+            var userFirstName = await _userManager.FindByNameAsync(credentials.UserName);
             var identity = await authService.GetClaimsIdentity(credentials.UserName, credentials.Password);
+            
             if (identity == null)
                 return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
-
+            
             var jwt = await Tokens.GenerateJwt(
-                identity, _jwtFactory,
-                credentials.UserName,
+                identity,
+                _jwtFactory,
                 _jwtOptions,
-                new JsonSerializerSettings { Formatting = Formatting.Indented });
+                new JsonSerializerSettings { Formatting = Formatting.Indented },
+                credentials.UserName,
+                userFirstName.FirstName);
             
             return new OkObjectResult(jwt);
         }
