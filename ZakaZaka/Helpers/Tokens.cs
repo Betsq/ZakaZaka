@@ -17,13 +17,15 @@ namespace ZakaZaka.Helpers
         public static async Task<string> GenerateJwt(
             ClaimsIdentity identity,
             IJwtFactory jwtFactory,
-            string userName,
             JwtIssuerOptions jwtOptions,
-            JsonSerializerSettings serializerSettings)
+            JsonSerializerSettings serializerSettings,
+            string userName, 
+            string userFirstName)
         {
             var response = new
             {
                 id = identity.Claims.Single(c => c.Type == "id").Value,
+                firstName = userFirstName,
                 auth_token = await jwtFactory.GenerateEncodedToken(userName, identity),
                 expires_in = (int) jwtOptions.ValidFor.TotalSeconds
             };
