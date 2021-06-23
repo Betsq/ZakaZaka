@@ -10,7 +10,7 @@ using ZakaZaka.Service.FileOnServer;
 using ZakaZaka.Service.FormDataBinder;
 using ZakaZaka.Service.RestaurantServices.RestaurantFoods;
 
-namespace ZakaZaka.Controllers
+namespace ZakaZaka.Controllers.RestaurantController
 {
     [ApiController]
     [Route("api/RestaurantFood")]

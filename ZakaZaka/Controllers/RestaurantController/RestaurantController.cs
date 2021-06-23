@@ -12,7 +12,7 @@ using ZakaZaka.Service.FileOnServer;
 using ZakaZaka.Service.RestaurantCuisines;
 using ZakaZaka.ViewModels;
 
-namespace ZakaZaka.Controllers
+namespace ZakaZaka.Controllers.RestaurantController
 {
     [ApiController]
     [Route("api/Restaurant")]

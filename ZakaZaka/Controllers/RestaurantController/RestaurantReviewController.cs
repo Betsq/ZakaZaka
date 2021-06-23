@@ -7,7 +7,7 @@ using ZakaZaka.Models.Restaurants;
 using ZakaZaka.Service.FormDataBinder;
 using ZakaZaka.Service.RestaurantServices;
 
-namespace ZakaZaka.Controllers
+namespace ZakaZaka.Controllers.RestaurantController
 {
     [ApiController]
     [Route("api/review")]
