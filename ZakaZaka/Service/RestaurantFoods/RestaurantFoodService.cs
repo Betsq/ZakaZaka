@@ -2,84 +2,55 @@
 using Microsoft.AspNetCore.Http;
 using ZakaZaka.Context;
 using ZakaZaka.Models.Restaurants;
-using ZakaZaka.Service.AddingFile;
-using ZakaZaka.Service.RemovingFile;
+using ZakaZaka.Service.FileOnServer;
 
 namespace ZakaZaka.Service.RestaurantFoods
 {
     public class RestaurantFoodService
     {
         private RestaurantFood _restaurantFood;
-        private int _restaurantId;
-        private IFormFile _file;
-        private ApplicationContext _db;
-        private IWebHostEnvironment _webHostEnvironment;
-        
+        private readonly IFileOnServer _fileOnServer;
+
         private readonly string _pathToFolder = "/files/restaurants/restaurantFood/";
-        private string _pathToImage;
-        
-        public RestaurantFoodService(RestaurantFood restaurantFood, int restaurantId,
-            IFormFile file, ApplicationContext db, IWebHostEnvironment webHostEnvironment)
+
+        public RestaurantFoodService(RestaurantFood restaurantFood,
+            IFileOnServer fileOnServer)
         {
             _restaurantFood = restaurantFood;
-            _restaurantId = restaurantId;
-            _file = file;
-            _db = db;
-            _webHostEnvironment = webHostEnvironment;
+            _fileOnServer = fileOnServer;
         }
 
-        public RestaurantFood Create()
+        public RestaurantFood Create(int restaurantId, IFormFile file = null)
         {
-            if (_file != null)
-            {
-                var addImage = new AddImageToServer(_file, _pathToFolder, _file.FileName, _webHostEnvironment);
+            if (file != null)
+                _restaurantFood.PathToImage = _fileOnServer.Add(_pathToFolder, file);
 
-                _pathToImage = addImage.Add();
-                _restaurantFood.PathToImage = _pathToImage;
-            }
-            
-            _restaurantFood.RestaurantId = _restaurantId;
-            
-            _db.RestaurantFoods.Add(_restaurantFood);
-            _db.SaveChanges();
-            
+            _restaurantFood.RestaurantId = restaurantId;
+
             return _restaurantFood;
         }
 
-        public RestaurantFood Update()
+        public RestaurantFood Update(IFormFile file = null)
         {
-            if (_file != null)
+            if (file != null)
             {
-                if (System.IO.File.Exists(_webHostEnvironment.WebRootPath + _restaurantFood.PathToImage)) 
+                if (_fileOnServer.Exists(_restaurantFood.PathToImage))
                 {
-                    var removeFile = new RemoveFileFromServer(_restaurantFood.PathToImage, _webHostEnvironment);
-                    removeFile.Remove();
+                    _fileOnServer.Remove(_restaurantFood.PathToImage);
                 }
-                
-                var image = new AddImageToServer(_file, _pathToFolder, _file.FileName, _webHostEnvironment);
 
-                _pathToImage = image.Add();
-                _restaurantFood.PathToImage = _pathToImage;
+                _restaurantFood.PathToImage = _fileOnServer.Add(_pathToFolder, file);
             }
-            
-            _restaurantFood.RestaurantId = _restaurantId;
-            _db.RestaurantFoods.Update(_restaurantFood);
-
-            _db.SaveChanges();
 
             return _restaurantFood;
         }
 
         public RestaurantFood Remove()
         {
-            if (System.IO.File.Exists(_webHostEnvironment.WebRootPath + _restaurantFood.PathToImage))
+            if (_fileOnServer.Exists(_restaurantFood.PathToImage))
             {
-                var removeFile = new RemoveFileFromServer(_restaurantFood.PathToImage, _webHostEnvironment);
-                removeFile.Remove();
+                _fileOnServer.Remove(_restaurantFood.PathToImage);
             }
-
-            _db.RestaurantFoods.Remove(_restaurantFood);
-            _db.SaveChanges();
 
             return _restaurantFood;
         }
