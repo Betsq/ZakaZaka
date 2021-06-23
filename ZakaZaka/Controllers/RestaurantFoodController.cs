@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZakaZaka.Context;
 using ZakaZaka.Models.Restaurants;
+using ZakaZaka.Service.FileOnServer;
 using ZakaZaka.Service.FormDataBinder;
 using ZakaZaka.Service.RestaurantFoods;
 
@@ -15,77 +17,77 @@ namespace ZakaZaka.Controllers
     public class RestaurantFoodController : Controller
     {
         private readonly ApplicationContext _db;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-            
-        public RestaurantFoodController(ApplicationContext db, IWebHostEnvironment webHostEnvironment)
+        private readonly IFileOnServer _fileOnServer;
+
+        public RestaurantFoodController(ApplicationContext db, IFileOnServer fileOnServer)
         {
             _db = db;
-            _webHostEnvironment = webHostEnvironment;
+            _fileOnServer = fileOnServer;
         }
 
         [HttpGet]
-        public IEnumerable<RestaurantFood> Get()
-        {
-            return _db.RestaurantFoods.ToList();
-        }
+        public IEnumerable<RestaurantFood> Get() => _db.RestaurantFoods.ToList();
 
         [HttpGet("{restaurantId}")]
-        public IEnumerable<RestaurantFood> Get(int restaurantId)
-        {
-            var restaurantFood = _db.RestaurantFoods.Where(item => item.RestaurantId == restaurantId).ToList();
-
-            return restaurantFood;
-        }
-
+        public IEnumerable<RestaurantFood> Get(int restaurantId) =>
+            _db.RestaurantFoods.Where(item => item.RestaurantId == restaurantId).ToList();
+        
         [HttpPost]
-        public IActionResult Post(
-            [FromForm][ModelBinder(BinderType = typeof(FormDataJsonBinder))]RestaurantFood restaurantFood,
-            [FromForm][ModelBinder(BinderType = typeof(FormDataJsonBinder))]int restaurantId, [FromForm] IFormFile file)
+        public async Task<IActionResult> Post(
+            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
+            RestaurantFood restaurantFood,
+            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
+            int restaurantId, [FromForm] IFormFile file)
         {
             if (restaurantFood == null)
                 return BadRequest();
-            if (restaurantId < 1)
-                return BadRequest();
-            
-            var restaurantFoodService =
-                new RestaurantFoodService(restaurantFood, restaurantId, file, _db, _webHostEnvironment);
 
-            var create = restaurantFoodService.Create();
-            return Ok(create);
+            var restaurantFoodService = new RestaurantFoodService(restaurantFood, _fileOnServer);
+
+            var add = restaurantFoodService.Create(restaurantId, file);
+
+            _db.Add(add);
+            await _db.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpPut]
-        public IActionResult Put(
-            [FromForm][ModelBinder(BinderType = typeof(FormDataJsonBinder))]RestaurantFood restaurantFood,
-            [FromForm][ModelBinder(BinderType = typeof(FormDataJsonBinder))]int restaurantId, [FromForm] IFormFile file)
+        public async Task<IActionResult> Put(
+            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
+            RestaurantFood restaurantFood,
+            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
+            int restaurantId, [FromForm] IFormFile file)
         {
             if (restaurantFood == null)
                 return BadRequest();
-            if (restaurantId < 1)
-                return BadRequest();
 
-            var restaurantFoodService =
-                new RestaurantFoodService(restaurantFood, restaurantId, file, _db, _webHostEnvironment);
+            var restaurantFoodService = new RestaurantFoodService(restaurantFood, _fileOnServer);
 
-            var create = restaurantFoodService.Update();
-            return Ok(create);
+            var update = restaurantFoodService.Update(file);
+
+            _db.RestaurantFoods.Update(update);
+            await _db.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var restaurantFood = _db.RestaurantFoods.Find(id);
-            
+            var restaurantFood = await _db.RestaurantFoods.FindAsync(id);
+
             if (restaurantFood == null)
                 return BadRequest();
-            
-            var restaurantFoodService =
-                new RestaurantFoodService(restaurantFood, restaurantFood.RestaurantId, null, _db, _webHostEnvironment);
+
+            var restaurantFoodService = new RestaurantFoodService(restaurantFood, _fileOnServer);
 
             var remove = restaurantFoodService.Remove();
+
+            _db.RestaurantFoods.Remove(remove);
+            await _db.SaveChangesAsync();
+            
             return Ok(remove);
         }
-        
-        
     }
 }
