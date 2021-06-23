@@ -8,7 +8,7 @@ using ZakaZaka.Context;
 using ZakaZaka.Models.Restaurants;
 using ZakaZaka.Service.FileOnServer;
 using ZakaZaka.Service.FormDataBinder;
-using ZakaZaka.Service.RestaurantFoods;
+using ZakaZaka.Service.RestaurantServices.RestaurantFoods;
 
 namespace ZakaZaka.Controllers
 {

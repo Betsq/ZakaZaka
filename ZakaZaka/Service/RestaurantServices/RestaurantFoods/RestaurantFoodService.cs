@@ -4,7 +4,7 @@ using ZakaZaka.Context;
 using ZakaZaka.Models.Restaurants;
 using ZakaZaka.Service.FileOnServer;
 
-namespace ZakaZaka.Service.RestaurantFoods
+namespace ZakaZaka.Service.RestaurantServices.RestaurantFoods
 {
     public class RestaurantFoodService
     {
