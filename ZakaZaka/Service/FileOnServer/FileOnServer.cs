@@ -16,7 +16,7 @@ namespace ZakaZaka.Service.FileOnServer
         }
         public string Add(string pathToFolder, IFormFile file)
         {
-            ThrowIfInvalidAdding(file, pathToFolder);
+            ThrowIfInvalidAdd(file, pathToFolder);
 
             string pathToFile = pathToFolder + file.FileName;
             using var fileStream =
@@ -29,7 +29,7 @@ namespace ZakaZaka.Service.FileOnServer
 
         public void Remove(string pathToFile)
         {
-            ThrowIfInvalidRemoving(pathToFile);
+            ThrowIfInvalidRemove(pathToFile);
 
             File.Delete(_webHostEnvironment.WebRootPath + pathToFile);
         }
@@ -39,7 +39,7 @@ namespace ZakaZaka.Service.FileOnServer
             return File.Exists(_webHostEnvironment.WebRootPath + path);
         }
 
-        private void ThrowIfInvalidAdding(IFormFile file, string pathToFolder)
+        private void ThrowIfInvalidAdd(IFormFile file, string pathToFolder)
         {
             if (file == null)
                 throw new NullReferenceException("File can't be a null");
@@ -52,7 +52,7 @@ namespace ZakaZaka.Service.FileOnServer
                 
         }
 
-        private void ThrowIfInvalidRemoving(string pathToFile)
+        private void ThrowIfInvalidRemove(string pathToFile)
         {
             if (!Exists(pathToFile))
                 throw new Exception($"The file in the path " +
