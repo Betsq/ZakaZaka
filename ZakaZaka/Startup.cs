@@ -12,9 +12,11 @@ using ZakaZaka.Context;
 using ZakaZaka.Models;
 using ZakaZaka.Models.Identity;
 using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ZakaZaka.Auth;
 using ZakaZaka.Helpers;
+using ZakaZaka.Helpers.AutoMapper;
 using ZakaZaka.Service.FileOnServer;
 
 namespace ZakaZaka
@@ -101,6 +103,14 @@ namespace ZakaZaka
             });
             builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
             builder.AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+
+            var mapperConfig = new MapperConfiguration(configure =>
+            {
+                configure.AddProfile(new MappingReview());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
 
