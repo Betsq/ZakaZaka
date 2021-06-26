@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ZakaZaka.Context;
+using ZakaZaka.Models.ModelsDTO;
 using ZakaZaka.Models.Restaurants;
 
 namespace ZakaZaka.Service.RestaurantServices
@@ -11,47 +13,55 @@ namespace ZakaZaka.Service.RestaurantServices
     public class RestaurantReviewService : IRestaurantReviewService
     {
         private readonly ApplicationContext _db;
-        private readonly string _errorText = "Restaurant review is null"; 
+        private readonly IMapper _mapper;
+        private const string ERROR_MODEL_NULL = "Restaurant review is null"; 
 
-        public RestaurantReviewService(ApplicationContext db)
+        public RestaurantReviewService(ApplicationContext db, IMapper mapper)
         {
             _db = db;
+            _mapper = mapper;
         }
         
-        public async Task<IEnumerable<RestaurantReview>> Get(int restaurantId)
+        public async Task<IEnumerable<RestaurantReviewDTO>> Get(int restaurantId)
         {
             var reviews = await _db.RestaurantReviews.Where(item => item.RestaurantId == restaurantId).ToListAsync();
 
-            return reviews;
-        }
-
-        public async Task Add(RestaurantReview restaurantReview)
-        {
-            if (restaurantReview == null)
-                throw new NullReferenceException(_errorText);
+            var models = _mapper.Map<List<RestaurantReviewDTO>>(reviews);
             
-            _db.RestaurantReviews.Add(restaurantReview);
-            await _db.SaveChangesAsync();
+            return models;
         }
 
-        public async Task Update(RestaurantReview restaurantReview)
+        public void Add(RestaurantReviewDTO modelDTO)
         {
-            if (restaurantReview == null)
-                throw new NullReferenceException(_errorText);
+            var model = _mapper.Map<RestaurantReview>(modelDTO);
+            ThrowIfInvalid(model);
+            _db.RestaurantReviews.Add(model);
+        }
 
-            _db.RestaurantReviews.Update(restaurantReview);
-            await _db.SaveChangesAsync();
+        public void Update(RestaurantReviewDTO modelDTO)
+        {
+            var model = _mapper.Map<RestaurantReview>(modelDTO);
+            ThrowIfInvalid(model);
+            _db.RestaurantReviews.Update(model);
         }
 
         public async Task Remove(int reviewId)
         {
             var review = await _db.RestaurantReviews.FindAsync(reviewId);
-
-            if (review == null)
-                throw new Exception("Review not found");
-
+            
+            ThrowIfInvalid(review);
+            
             _db.Remove(review);
+        }
+
+        public async Task SaveDataBase()
+        {
             await _db.SaveChangesAsync();
+        }
+        private void ThrowIfInvalid(RestaurantReview model)
+        {
+            if (model == null)
+                throw new ArgumentNullException(ERROR_MODEL_NULL);
         }
     }
 }
