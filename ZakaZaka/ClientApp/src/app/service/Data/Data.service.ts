@@ -7,23 +7,23 @@ export abstract class DataService {
 
   protected constructor(protected http: HttpClient) {}
 
-  public Get(optionHeaders: HttpHeaders){
+  public Get(optionHeaders?: HttpHeaders){
     return this.http.get(this.url, {headers: optionHeaders});
   }
 
-  public GetWithId(id: number, optionHeaders: HttpHeaders){
+  public GetWithId(id: number, optionHeaders?: HttpHeaders){
     return this.http.get(this.url + "/" + id, {headers: optionHeaders});
   }
 
-  public Post(data: any, optionHeaders: HttpHeaders){
+  public Post(data: any, optionHeaders?: HttpHeaders){
     return this.http.post(this.url, data, {headers: optionHeaders});
   }
 
-  public Put(data: any, optionHeaders: HttpHeaders){
+  public Put(data: any, optionHeaders?: HttpHeaders){
     return this.http.put(this.url, data, {headers: optionHeaders});
   }
 
-  public Delete(id: number, optionHeaders: HttpHeaders){
+  public Delete(id: number, optionHeaders?: HttpHeaders){
     return this.http.delete(this.url + "/" + id, {headers: optionHeaders});
   }
 }
