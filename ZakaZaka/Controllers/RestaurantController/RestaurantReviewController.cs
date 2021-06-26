@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ZakaZaka.Context;
+using ZakaZaka.Helpers;
+using ZakaZaka.Models.ModelsDTO;
 using ZakaZaka.Models.Restaurants;
+using ZakaZaka.Service;
 using ZakaZaka.Service.FormDataBinder;
 using ZakaZaka.Service.RestaurantServices;
 
@@ -13,38 +20,39 @@ namespace ZakaZaka.Controllers.RestaurantController
     [Route("api/review")]
     public class RestaurantReviewController : Controller
     {
-        private IRestaurantReviewService _reviewService;
-        
-        public RestaurantReviewController(ApplicationContext db)
+        private readonly IRestaurantReviewService _reviewService;
+        public RestaurantReviewController(ApplicationContext db, IMapper mapper)
         {
-            _reviewService = new RestaurantReviewService(db);
+            _reviewService = new RestaurantReviewService(db, mapper);
         }
 
         [HttpGet("{restaurantId}")]
-        public async Task<IEnumerable<RestaurantReview>> Get(int restaurantId) => await _reviewService.Get(restaurantId);
+        public async Task<IEnumerable<RestaurantReviewDTO>> Get(int restaurantId) => await _reviewService.Get(restaurantId);
 
 
         [HttpPost]
         public async Task<IActionResult> Post(
-            [FromForm][ModelBinder(BinderType = typeof(FormDataJsonBinder))]RestaurantReview restaurantReview)
+            [FromBody]RestaurantReviewDTO model)
         {
-            if (restaurantReview == null)
-                return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(model);
 
-            restaurantReview.Time = DateTime.Now;
+            _reviewService.Add(model);
+            await _reviewService.SaveDataBase();
             
-            await _reviewService.Add(restaurantReview);
             return Ok();
         }
 
         [HttpPut]
         public async Task<IActionResult> Put(
-            [FromForm][ModelBinder(BinderType = typeof(FormDataJsonBinder))]RestaurantReview restaurantReview)
+            [FromBody]RestaurantReviewDTO model)
         {
-            if (restaurantReview == null)
+            if (model == null)
                 return BadRequest();
             
-            await _reviewService.Update(restaurantReview);
+            _reviewService.Update(model);
+            await _reviewService.SaveDataBase();
+            
             return Ok();
         }
 
@@ -52,7 +60,8 @@ namespace ZakaZaka.Controllers.RestaurantController
         public async Task<IActionResult> Delete(int reviewId)
         {
             await _reviewService.Remove(reviewId);
-
+            await _reviewService.SaveDataBase();
+            
             return Ok();
         }
     }
