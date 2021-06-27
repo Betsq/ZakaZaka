@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZakaZaka.Context;
+using ZakaZaka.Models.ModelsDTO;
 using ZakaZaka.Models.Restaurants;
 using ZakaZaka.Service.FileOnServer;
 using ZakaZaka.Service.FormDataBinder;
@@ -16,38 +18,27 @@ namespace ZakaZaka.Controllers.RestaurantController
     [Route("api/RestaurantFood")]
     public class RestaurantFoodController : Controller
     {
-        private readonly ApplicationContext _db;
-        private readonly IFileOnServer _fileOnServer;
-
-        public RestaurantFoodController(ApplicationContext db, IFileOnServer fileOnServer)
+        private readonly IRestaurantFoodService _foodService;
+        public RestaurantFoodController(ApplicationContext db, IFileOnServer fileOnServer, IMapper mapper)
         {
-            _db = db;
-            _fileOnServer = fileOnServer;
+            _foodService = new RestaurantFoodService(db, fileOnServer, mapper);
         }
 
-        [HttpGet]
-        public IEnumerable<RestaurantFood> Get() => _db.RestaurantFoods.ToList();
-
         [HttpGet("{restaurantId}")]
-        public IEnumerable<RestaurantFood> Get(int restaurantId) =>
-            _db.RestaurantFoods.Where(item => item.RestaurantId == restaurantId).ToList();
-        
+        public async Task<IEnumerable<RestaurantFoodDTO>> Get(int restaurantId) => await _foodService.Get(restaurantId);
+
         [HttpPost]
         public async Task<IActionResult> Post(
             [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
-            RestaurantFood restaurantFood,
-            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
-            int restaurantId, [FromForm] IFormFile file)
+            RestaurantFoodDTO model,
+            [FromForm] IFormFile file)
         {
-            if (restaurantFood == null)
+            if (model == null)
                 return BadRequest();
+            
+            _foodService.Add(model, file);
 
-            var restaurantFoodService = new RestaurantFoodService(restaurantFood, _fileOnServer);
-
-            var add = restaurantFoodService.Create(restaurantId, file);
-
-            _db.Add(add);
-            await _db.SaveChangesAsync();
+            await _foodService.SaveDataBase();
 
             return Ok();
         }
@@ -55,19 +46,15 @@ namespace ZakaZaka.Controllers.RestaurantController
         [HttpPut]
         public async Task<IActionResult> Put(
             [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
-            RestaurantFood restaurantFood,
-            [FromForm] [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
-            int restaurantId, [FromForm] IFormFile file)
+            RestaurantFoodDTO model,
+            [FromForm] IFormFile file)
         {
-            if (restaurantFood == null)
+            if (model == null)
                 return BadRequest();
 
-            var restaurantFoodService = new RestaurantFoodService(restaurantFood, _fileOnServer);
+            _foodService.Update(model, file);
 
-            var update = restaurantFoodService.Update(file);
-
-            _db.RestaurantFoods.Update(update);
-            await _db.SaveChangesAsync();
+            await _foodService.SaveDataBase();
 
             return Ok();
         }
@@ -75,19 +62,11 @@ namespace ZakaZaka.Controllers.RestaurantController
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var restaurantFood = await _db.RestaurantFoods.FindAsync(id);
+            await _foodService.Remove(id);
 
-            if (restaurantFood == null)
-                return BadRequest();
-
-            var restaurantFoodService = new RestaurantFoodService(restaurantFood, _fileOnServer);
-
-            var remove = restaurantFoodService.Remove();
-
-            _db.RestaurantFoods.Remove(remove);
-            await _db.SaveChangesAsync();
+            await _foodService.SaveDataBase();
             
-            return Ok(remove);
+            return Ok();
         }
     }
 }
