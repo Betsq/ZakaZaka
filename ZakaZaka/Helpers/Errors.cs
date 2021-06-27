@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ZakaZaka.Helpers
@@ -19,6 +20,11 @@ namespace ZakaZaka.Helpers
         {
             modelState.TryAddModelError(code, description);
             return modelState;
+        }
+
+        public static void ThrowIfNull<T>(T data)
+        {
+            if (data == null) throw new ArgumentNullException($"{nameof(data)} is null");
         }
     }
 }
