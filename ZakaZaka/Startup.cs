@@ -107,6 +107,7 @@ namespace ZakaZaka
             var mapperConfig = new MapperConfiguration(configure =>
             {
                 configure.AddProfile(new MappingReview());
+                configure.AddProfile(new MappingFood());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();
