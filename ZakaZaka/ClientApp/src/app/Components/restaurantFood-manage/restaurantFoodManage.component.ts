@@ -4,12 +4,13 @@ import {RestaurantFood} from "../../Model/restaurantFood";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {GenerateFormService} from "../../service/generateForm/generateForm.service";
+import {RestaurantFoodService} from "../../service/restaurant/RestaurantFood.service";
 
 @Component({
   selector: "restaurant-food-manage",
   templateUrl: "restaurantFoodManage.component.html",
   styleUrls: ["../restaurant-manage/styles/common.less", "../restaurant-manage/styles/group.less", "../restaurant-manage/styles/products.less"],
-  providers: [RestaurantFoodDataService, GenerateFormService]
+  providers: [RestaurantFoodDataService, GenerateFormService, RestaurantFoodService]
 })
 
 export class RestaurantFoodManageComponent implements OnInit{
@@ -27,8 +28,10 @@ export class RestaurantFoodManageComponent implements OnInit{
 
   routeSubscription: Subscription;
 
-  constructor(private foodDataService: RestaurantFoodDataService, private route: ActivatedRoute,
-              private form: GenerateFormService) {
+  constructor(private foodDataService: RestaurantFoodDataService,
+              private route: ActivatedRoute,
+              private form: GenerateFormService,
+              private restaurantFoodService: RestaurantFoodService) {
     this.routeSubscription = route.params.subscribe(param => this.restaurantId = param["id"]);
 
     foodDataService.url = "/api/RestaurantFood"
@@ -38,14 +41,74 @@ export class RestaurantFoodManageComponent implements OnInit{
     this.loadProduct();
   }
 
+  showAdd(){
+    this.show(false, true);
+  }
+
+  showUpdate(restaurantFood: RestaurantFood){
+    this.restaurantFood = restaurantFood;
+
+    this.show(false, false, true);
+  }
+
   loadProduct(){
-    this.foodDataService.GetWithId(this.restaurantId).subscribe((data: RestaurantFood[]) => this.restaurantFoods = data);
-    console.log(this.restaurantId);
+    this.restaurantFoodService.get(this.restaurantId).pipe().subscribe((data: RestaurantFood[]) => this.restaurantFoods = data);
+  }
+
+  add(){
+    this.restaurantFoodService.add(this.restaurantFood, this.restaurantId, this.file).subscribe({
+      next: () => {
+        this.loadProduct();
+        this.setDefaultData();
+      },
+      error: () => {
+        alert("Restaurant food not added")
+      }
+    });
+  }
+
+  update(){
+    this.restaurantFoodService.update(this.restaurantFood, this.file).subscribe({
+      next: () => {
+        this.loadProduct();
+        this.setDefaultData();
+      },
+      error: () =>{
+        alert("Restaurant food not updated")
+      }
+    });
+  }
+
+  remove(restaurantFood: RestaurantFood){
+    let confirmToDelete: boolean = confirm(`Are you sure you want to delete ${restaurantFood.name} ?`);
+
+    if(confirmToDelete){
+      this.restaurantFoodService.remove(restaurantFood).subscribe({
+        next: () =>{
+          this.loadProduct();
+        },
+        error: () =>{
+          alert("Restaurant food not delete")
+        }
+      });
+    }
+
   }
 
   loadFile(files: FileList, idElement: string){
     this.file = files;
 
+    this.displayImage(idElement);
+  }
+
+  setDefaultData(){
+    this.restaurantFood = new RestaurantFood();
+    this.file = null;
+
+    this.show(true)
+  }
+
+  private displayImage(idElement: string){
     let reader = new FileReader();
     reader.readAsDataURL(this.file[0]);
 
@@ -57,46 +120,7 @@ export class RestaurantFoodManageComponent implements OnInit{
     }
   }
 
-  add(){
-    this.show(false, true);
-  }
-
-  update(restaurantFood: RestaurantFood){
-    this.restaurantFood = restaurantFood;
-
-    this.show(false, false, true);
-  }
-
-  remove(restaurantFood: RestaurantFood){
-    let confirmToDelete: boolean = confirm(`Are you sure you want to delete ${restaurantFood.name} ?`);
-
-    if(confirmToDelete)
-      this.foodDataService.Delete(restaurantFood.id).subscribe(() => this.loadProduct());
-  }
-
-  save(){
-    let data = [{name: "restaurantFood", param: this.restaurantFood}, {name: "restaurantId", param: this.restaurantId}];
-
-    const formData = this.form.generate(data, this.file);
-
-    if(this.restaurantFood.id === null){
-      this.foodDataService.Post(formData).subscribe(() => this.loadProduct());
-    }
-    else{
-      this.foodDataService.Put(formData).subscribe(() => this.loadProduct());
-    }
-
-    this.cancel();
-  }
-
-  cancel(){
-    this.restaurantFood = new RestaurantFood();
-    this.file = null;
-
-    this.show(true)
-  }
-
-  show(showFoods: boolean = true, showCreate: boolean = false, showUpdate: boolean = false) : void{
+  private show(showFoods: boolean = true, showCreate: boolean = false, showUpdate: boolean = false) : void{
     this.isShowFoods = showFoods;
     this.isShowCreate = showCreate;
     this.isShowUpdate = showUpdate;

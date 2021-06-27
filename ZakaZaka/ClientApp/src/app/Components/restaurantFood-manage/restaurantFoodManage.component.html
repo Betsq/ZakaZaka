@@ -5,7 +5,7 @@
       <div class="products__title">
         List of foods
       </div>
-      <button class="button-add" (click)="add()">
+      <button class="button-add" (click)="showAdd()">
         Add
       </button>
       <table class="products__table">
@@ -21,7 +21,7 @@
         <tr *ngFor="let rf of restaurantFoods">
           <td class="products__name">{{rf?.name}}</td>
           <td class="products__buttons">
-            <button class="products__change button-change" (click)="update(rf)">Update</button>
+            <button class="products__change button-change" (click)="showUpdate(rf)">Update</button>
             <button class="button-remove" (click)="remove(rf)">Remove</button>
           </td>
         </tr>
@@ -56,8 +56,8 @@
         <img src="" id="preview-logo" style="width: 160px; height: 160px">
       </div>
 
-      <button class="button-add" (click)="save()">Add</button>
-      <button class="button-cancel" (click)="cancel()">Cancel</button>
+      <button class="button-add" (click)="add()">Add</button>
+      <button class="button-cancel" (click)="setDefaultData()">Cancel</button>
     </div>
 
 
@@ -89,8 +89,8 @@
         <img src="{{restaurantFood.pathToImage}}" id="preview-logo" style="width: 160px; height: 160px">
       </div>
 
-      <button class="button-change" (click)="save()">Update</button>
-      <button class="button-cancel" (click)="cancel()">Cancel</button>
+      <button class="button-change" (click)="update()">Update</button>
+      <button class="button-cancel" (click)="setDefaultData()">Cancel</button>
     </div>
   </div>
  </div>
