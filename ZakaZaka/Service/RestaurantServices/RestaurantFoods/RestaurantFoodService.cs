@@ -1,58 +1,105 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ZakaZaka.Context;
+using ZakaZaka.Helpers;
+using ZakaZaka.Models.ModelsDTO;
 using ZakaZaka.Models.Restaurants;
 using ZakaZaka.Service.FileOnServer;
 
 namespace ZakaZaka.Service.RestaurantServices.RestaurantFoods
 {
-    public class RestaurantFoodService
+    public class RestaurantFoodService : IRestaurantFoodService
     {
-        private RestaurantFood _restaurantFood;
         private readonly IFileOnServer _fileOnServer;
+        private readonly ApplicationContext _db;
+        private readonly IMapper _mapper;
+        private const string PathToFolder = "/files/restaurants/restaurantFood/";
 
-        private readonly string _pathToFolder = "/files/restaurants/restaurantFood/";
-
-        public RestaurantFoodService(RestaurantFood restaurantFood,
-            IFileOnServer fileOnServer)
+        public RestaurantFoodService(ApplicationContext db, IFileOnServer fileOnServer, IMapper mapper)
         {
-            _restaurantFood = restaurantFood;
             _fileOnServer = fileOnServer;
+            _db = db;
+            _mapper = mapper;
         }
 
-        public RestaurantFood Create(int restaurantId, IFormFile file = null)
+        public async Task<IEnumerable<RestaurantFoodDTO>> Get(int restaurantId)
         {
+            var foods = await _db.RestaurantFoods.Where(item => item.RestaurantId == restaurantId).ToListAsync();
+
+            var foodsDTO = _mapper.Map<List<RestaurantFoodDTO>>(foods);
+
+            return foodsDTO;
+        }
+        public void Add(RestaurantFoodDTO modelDTO, IFormFile file)
+        {
+            var model = _mapper.Map<RestaurantFood>(modelDTO);
+            Errors.ThrowIfNull(model);
+
             if (file != null)
-                _restaurantFood.PathToImage = _fileOnServer.Add(_pathToFolder, file);
+                model.PathToImage = AddFile(file);
 
-            _restaurantFood.RestaurantId = restaurantId;
-
-            return _restaurantFood;
+            _db.Add(model);
         }
 
-        public RestaurantFood Update(IFormFile file = null)
+        public void Update(RestaurantFoodDTO modelDTO, IFormFile file)
         {
+            var model = _mapper.Map<RestaurantFood>(modelDTO);
+
+            Errors.ThrowIfNull(model);
+
             if (file != null)
+                model.PathToImage = UpdateFile(file);
+            
+            _db.Update(model);
+        }
+
+        public async Task Remove(int id)
+        {
+            var model = await _db.RestaurantFoods.FindAsync(id);
+            
+            Errors.ThrowIfNull(model);
+            
+            if (_fileOnServer.Exists(model.PathToImage))
             {
-                if (_fileOnServer.Exists(_restaurantFood.PathToImage))
-                {
-                    _fileOnServer.Remove(_restaurantFood.PathToImage);
-                }
-
-                _restaurantFood.PathToImage = _fileOnServer.Add(_pathToFolder, file);
+                _fileOnServer.Remove(model.PathToImage);
             }
 
-            return _restaurantFood;
+            _db.Remove(model);
         }
 
-        public RestaurantFood Remove()
+        public async Task SaveDataBase()
         {
-            if (_fileOnServer.Exists(_restaurantFood.PathToImage))
-            {
-                _fileOnServer.Remove(_restaurantFood.PathToImage);
-            }
+            await _db.SaveChangesAsync();
+        }
 
-            return _restaurantFood;
+        private string UpdateFile(IFormFile file)
+        {
+            string pathToFile = PathToFolder + file.FileName;
+
+            if (_fileOnServer.Exists(pathToFile))
+            {
+                _fileOnServer.Remove(pathToFile); 
+            }
+            
+            pathToFile = _fileOnServer.Add(PathToFolder, file);
+            return pathToFile;
+        }
+
+        private string AddFile(IFormFile file)
+        {
+            string pathToFile = PathToFolder + file.FileName;
+
+            if (_fileOnServer.Exists(pathToFile))
+                return pathToFile;
+
+            pathToFile = _fileOnServer.Add(PathToFolder, file);
+            return pathToFile;
         }
     }
 }
