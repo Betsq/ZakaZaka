@@ -4,7 +4,7 @@
       <div class="products__title">
         List of restaurants
       </div>
-      <button class="button-add" (click)="add()">
+      <button class="button-add" (click)="showAdd()">
         Add
       </button>
       <table class="products__table">
@@ -23,9 +23,9 @@
           <td class="products__name">{{rs?.name}}</td>
           <td class="products__name">{{rs?.id}}</td>
           <td class="products__buttons">
-            <button class="products__change button-change" (click)="update(rs)">Change</button>
+            <button class="products__change button-change" (click)="showUpdate(rs)">Change</button>
             <a [routerLink]="['/restaurantFoodManage', rs.id]">Foods</a>
-            <button class="button-remove" (click)="remove(rs)">Remove</button>
+            <button class="button-remove" (click)="delete(rs)">Remove</button>
           </td>
         </tr>
         </tbody>
@@ -65,7 +65,7 @@
         </label>
       </div>
       <div class="group">
-        <input type="file" id="file" accept="image/*" (change)="loadFile($event.target.files, 'preview-logo')" required>
+        <input type="file" id="file" accept="image/*" (change)="setFile($event.target.files, 'preview-logo')" required>
       </div>
       <div class="group">
         <img src="" id="preview-logo" style="width: 160px; height: 160px">
@@ -76,8 +76,8 @@
         </div>
       </div>
 
-      <button class="button-add" (click)="save()">Add</button>
-      <button class="button-cancel" (click)="cancel()">Cancel</button>
+      <button class="button-add" (click)="add()">Add</button>
+      <button class="button-cancel" (click)="setDefaultParameters()">Cancel</button>
     </div>
 
 
@@ -114,7 +114,7 @@
         </label>
       </div>
       <div class="group">
-        <input type="file" id="file" accept="image/*" (change)="loadFile($event.target.files, 'preview-logo')" required>
+        <input type="file" id="file" accept="image/*" (change)="setFile($event.target.files, 'preview-logo')" required>
       </div>
       <div class="group">
         <img src="{{restaurant.pathToImage}}" id="preview-logo" style="width: 160px; height: 160px">
@@ -125,8 +125,8 @@
           <ng-template #notHasCuisine><input type="checkbox" (click)="addCuisine($event.target.checked, cs)"></ng-template>
         {{cs.name}}
       </div>
-      <button class="button-change" (click)="save()">Update</button>
-      <button class="button-cancel" (click)="cancel()">Cancel</button>
+      <button class="button-change" (click)="update()">Update</button>
+      <button class="button-cancel" (click)="setDefaultParameters()">Cancel</button>
     </div>
   </div>
 </div>
