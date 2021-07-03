@@ -3,7 +3,9 @@ import {HttpClient, HttpHeaders, HttpRequest} from "@angular/common/http";
 import {Restaurant } from "../../Model/restaurant";
 import {DataService} from "./Data.service";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class RestaurantDataService extends DataService{
 
   constructor(protected http: HttpClient) {
