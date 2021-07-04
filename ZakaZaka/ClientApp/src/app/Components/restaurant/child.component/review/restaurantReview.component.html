@@ -1,13 +1,22 @@
 ﻿<div class="comment">
+
+  <ngb-rating [(rate)]="currentRate" [max]="5" style="display: flex">
+    <ng-template let-fill="fill" let-index="index">
+      <span class="star" [class.filled]="fill === 100">&#9733;</span>
+    </ng-template>
+  </ngb-rating>
+
+
   <div class="comment__send">
     <textarea name="" cols="70" rows="5" [(ngModel)]="reviewPost.review" #textAreaElement placeholder="Give feedback"></textarea>
     <button (click)="add(textAreaElement)">Send</button>
   </div>
-<!--
+
+
   <div class="comment__title">
     <div>You can leave feedback after in ordering</div>
     <a href="#">Go to the menu</a>
-  </div>-->
+  </div>
   <div class="comment__reviews-title">
     {{restaurant.name}} - reviews
   </div>
@@ -28,5 +37,10 @@
         {{rv.review}}
       </div>
     </div>
+    <ngb-rating [(rate)]="rv.assessment" [max]="5" [readonly]="true" style="margin-left: auto;">
+      <ng-template let-fill="fill" let-index="index">
+        <span class="star" [class.filled]="fill === 100">&#9733;</span>
+      </ng-template>
+    </ngb-rating>
   </div>
 </div>

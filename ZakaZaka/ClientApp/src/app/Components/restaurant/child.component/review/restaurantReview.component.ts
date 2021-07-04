@@ -17,6 +17,8 @@ export class RestaurantReviewComponent implements OnInit{
   reviewPost: RestaurantReview = new RestaurantReview();
   restaurant: Restaurant;
 
+  currentRate = 3;
+
   constructor(private shareData: RestaurantDataShareService, private restaurantReview: RestaurantReviewService)  {
   }
 
@@ -29,7 +31,7 @@ export class RestaurantReviewComponent implements OnInit{
     textareaElem.value = "";
 
     //This is temporary
-    this.reviewPost.assessment = 4;
+    this.reviewPost.assessment = this.currentRate;
     this.restaurantReview.add(this.reviewPost, this.restaurant.id);
 
     this.loadReviews();
