@@ -1,8 +1,8 @@
 ﻿import {Component, OnInit} from "@angular/core";
 import { RestaurantDataService} from "../../service/Data/restuarantData.service";
 import {Restaurant} from "../../Model/restaurant";
-import {RestaurantManageViewModel} from "../../../ViewModel/RestaurantManageViewModel";
 import {Cuisine} from "../../Model/cuisine";
+import {NgxSpinnerModule, NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: "restaurants",
@@ -15,20 +15,25 @@ export class RestaurantsComponent implements OnInit{
   restaurants: readonly Restaurant[];
   cuisines: readonly Cuisine[];
 
-  constructor(private dataService: RestaurantDataService) {
+  constructor(private dataService: RestaurantDataService, private spinner: NgxSpinnerService) {
     dataService.url = "/api/Restaurant";
   }
 
   ngOnInit() {
     this.loadData()
+    this.spinner.show();
   }
 
   loadData(){
-    this.dataService.Get().subscribe((data: RestaurantManageViewModel) => this.setProducts(data));
+    this.dataService.Get().subscribe({
+      next: value => {
+        this.setProducts(value);
+        this.spinner.hide();
+      }
+    });
   }
 
-  setProducts(model: RestaurantManageViewModel) : void{
-    this.restaurants = model.restaurants;
-    this.cuisines = model.cuisines;
+  setProducts(model: Restaurant[]) : void{
+    this.restaurants = model;
   }
 }
