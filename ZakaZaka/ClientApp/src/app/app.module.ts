@@ -20,6 +20,7 @@ import {RestaurantReviewComponent} from "./Components/restaurant/child.component
 
 import {AuthorizationComponent} from "./Components/authorization/authorization.component";
 import {AuthGuardService} from "./service/auth/auth.guard.service";
+import {NgxSpinnerModule} from "ngx-spinner";
 
 //restaurant's the child components
 const restaurantRoutes: Routes = [
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
 
 
 @NgModule({
-  imports: [BrowserModule, FormsModule,ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
+  imports: [BrowserModule, FormsModule,ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(appRoutes), NgxSpinnerModule],
   declarations: [
     AppComponent, Home, Slider, Header, Footer, RestaurantManageComponent, RestaurantsComponent,
     CuisineManageComponent, RestaurantFoodManageComponent, RestaurantComponent, RestaurantMenuComponent,
