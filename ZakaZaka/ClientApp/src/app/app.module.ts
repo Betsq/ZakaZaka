@@ -22,6 +22,7 @@ import {AuthorizationComponent} from "./Components/authorization/authorization.c
 import {AuthGuardService} from "./service/auth/auth.guard.service";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {BasketComponent} from "./Components/basket/basket.component";
 
 //restaurant's the child components
 const restaurantRoutes: Routes = [
@@ -37,6 +38,7 @@ const appRoutes: Routes = [
   { path: "restaurantFoodManage/:id", component: RestaurantFoodManageComponent},
   { path: "restaurant/:id", component: RestaurantComponent},
   { path: "restaurant/:id", component: RestaurantComponent, children: restaurantRoutes},
+  { path: "basket", component: BasketComponent},
   { path: "**", redirectTo: "/" }
 ]
 
