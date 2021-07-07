@@ -23,6 +23,7 @@ import {AuthGuardService} from "./service/auth/auth.guard.service";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {BasketComponent} from "./Components/basket/basket.component";
+import {BasketHelperComponent} from "./Components/basket/Helper/basket-helper.component";
 
 //restaurant's the child components
 const restaurantRoutes: Routes = [
@@ -49,7 +50,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent, Home, Slider, Header, Footer, RestaurantManageComponent, RestaurantsComponent,
     CuisineManageComponent, RestaurantFoodManageComponent, RestaurantComponent, RestaurantMenuComponent,
-    RestaurantReviewComponent, AuthorizationComponent
+    RestaurantReviewComponent, AuthorizationComponent, BasketHelperComponent
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]
