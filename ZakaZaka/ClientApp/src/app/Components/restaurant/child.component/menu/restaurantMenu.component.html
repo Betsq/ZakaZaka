@@ -15,7 +15,7 @@
       <div class="menu__sub-title">
         <i class="coins menu__coins"></i> {{food.price}} $
       </div>
-      <button class="menu__butt-order">
+      <button class="menu__butt-order" (click)="addToBasket(food.id, food.restaurantId, food.price)">
         To order
       </button>
     </div>
@@ -36,7 +36,7 @@
         <div class="menu__sub-title">
           <i class="coins menu__coins"></i> {{food.price}} $
         </div>
-        <button class="menu__butt-order">
+        <button class="menu__butt-order" (click)="addToBasket(food.id, food.restaurantId, food.price)">
           To order
         </button>
       </div>
