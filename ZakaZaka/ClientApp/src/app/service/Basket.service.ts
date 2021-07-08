@@ -19,7 +19,7 @@ export class BasketService{
   public addToBasket(productInBasket: ProductInBasket){
     let products : ProductInBasket[];
 
-    if(this.hasProductsInStorage()){
+    if(this.hasAnyProductsInStorage()){
       products = JSON.parse(this.getProductFromStorage());
 
       products.push(productInBasket);
@@ -32,8 +32,42 @@ export class BasketService{
       localStorage.setItem(this.keyToLocalStorage, JSON.stringify(products));
     }
 
-    this.setPrice(productInBasket.productPrice)
-    this.setQuantity(productInBasket.productCount);
+    this.setPlusPrice(productInBasket.productPrice)
+    this.setPlusQuantity(productInBasket.productCount);
+  }
+
+  public remove(productInBasket: ProductInBasket){
+    if(this.hasAnyProductsInStorage()){
+      let index = this.getIdProduct(productInBasket);
+
+      if(index >= 0){
+        let products = JSON.parse(this.getProductFromStorage());
+
+        this.setMinusQuantity(products[index].productCount);
+        this.setMinusPrice(products[index].productPrice);
+
+        products.splice(index, 1);
+        this.setInStorage(products);
+      }
+    }
+  }
+
+  private getIdProduct(productInBasket: ProductInBasket) : number{
+    let products = JSON.parse(this.getProductFromStorage());
+
+    for(let i = 0; i < products.length; i++) {
+      if (products[i].productId === productInBasket.productId && products[i].restaurantId == productInBasket.restaurantId)
+        return i;
+    }
+
+    return -1;
+  }
+
+  public removeAll(){
+    localStorage.removeItem(this.keyToLocalStorage);
+
+    this._price.next(0);
+    this._quantity.next(0);
   }
 
   public getFinalPrice() : Observable<number>{
@@ -45,27 +79,39 @@ export class BasketService{
   }
 
   private initialDataWhenLoadFirst() : void{
-    if(this.hasProductsInStorage()){
+    if(this.hasAnyProductsInStorage()){
       let products = JSON.parse(this.getProductFromStorage())
 
       for(let i = 0; i < products.length; i++){
         let price = products[i].productPrice;
-        this.setPrice(price);
+        this.setPlusPrice(price);
 
         let quantity = products[i].productCount;
-        this.setQuantity(quantity);
+        this.setPlusQuantity(quantity);
       }
     }
   }
 
-  private setPrice(price: number){
+  private setPlusPrice(price: number){
     let endPrice = this._price.value + price;
 
     this._price.next(endPrice);
   }
 
-  private setQuantity(quantity: number){
+  private setMinusPrice(price: number){
+    let endPrice = this._price.value - price;
+
+    this._price.next(endPrice);
+  }
+
+  private setPlusQuantity(quantity: number){
     let endQuantity = this._quantity.value + quantity;
+
+    this._quantity.next(endQuantity);
+  }
+
+  private setMinusQuantity(quantity: number){
+    let endQuantity = this._quantity.value - quantity;
 
     this._quantity.next(endQuantity);
   }
@@ -76,7 +122,7 @@ export class BasketService{
     localStorage.setItem(this.keyToLocalStorage, products);
   }
 
-  private hasProductsInStorage(){
+  private hasAnyProductsInStorage(){
     let products = this.getProductFromStorage();
 
     return products !== null;
